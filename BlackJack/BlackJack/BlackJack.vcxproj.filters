@@ -27,6 +27,9 @@
     <ClCompile Include="BlackJack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pattern.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBpixmap.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlackJack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

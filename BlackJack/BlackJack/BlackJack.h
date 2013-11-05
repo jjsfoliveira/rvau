@@ -1,5 +1,9 @@
 #include <vector>
 #include "Card.h"
+#include "Pattern.h"
+#include <AR/ar.h>
+#include <stack>  
+#include <time.h>
 
 using namespace std;
 
@@ -15,23 +19,32 @@ public:
 	void resetGame();
 	void giveCardP();
 	void giveCardD();
+	vector<Pattern>& getPatts();
+	void initPatts();
+	void drawDispenser();
+	void drawPackPlayer();
+	void drawPackDiller();
+
+	double* posDiferPatterns(int marker1, int marker2);
+//	void drawPacks();
 
 
-	void drawPacks();
+
+
 
 private:
-	vector<Card> playingCards;
+	stack<Card> playingCards;
 	RGBpixmap pixmap;
 	int score;
 	vector<Card> packPlayer;
 	vector<Card> packDiller;
+	vector<Pattern> patts;
 
 	//aux
 	float x_init;
-
-	void drawPackPlayer();
-	void drawPackDiller();
-
-
+	double n_iterations; 
+	int index_diller;
+	int index_dispenser;
+	int index_player;
 };
 

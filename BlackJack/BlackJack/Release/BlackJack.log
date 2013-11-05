@@ -1,14 +1,16 @@
-﻿Build started 27/10/2013 02:18:31.
+﻿Build started 05/11/2013 19:13:08.
      1>Project "C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp
          BlackJack.cpp
-     1>BlackJack.cpp(261): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(266): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(291): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(283): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(288): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(310): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(355): warning C4172: returning address of local variable or temporary
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.exe" /NOLOGO /LIBPATH:.\lib libAR.lib libARgsub.lib libARvideo.lib opengl32.lib glu32.lib glui32.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.lib" /MACHINE:X86 /SAFESEH Release\BlackJack.obj
          Release\Card.obj
+         Release\Pattern.obj
          Release\Source.obj
          Release\RGBpixmap.obj
          Generating code
@@ -18,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.34
+Time Elapsed 00:00:01.78

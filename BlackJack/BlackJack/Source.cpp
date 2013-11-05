@@ -19,6 +19,8 @@
 //#include "RGBpixmap.h"
 #include "BlackJack.h"
 
+
+
 //
 // Camera configuration.
 //
@@ -35,11 +37,10 @@ int             _count = 0;
 char           *cparam_name    = "Data/camera_para.dat";
 ARParam         cparam;
 
-char           *patt_name      = "Data/patt.hiro";
-int             patt_id;
-double          patt_width     = 80.0;
-double          patt_center[2] = {0.0, 0.0};
-double          patt_trans[3][4];
+
+
+//Pattern patt = Pattern("Data/patt.hiro", 80.0, 0.0,0.0);
+
 
 RGBpixmap pixmap;
 
@@ -47,7 +48,7 @@ static void   init(void);
 static void   cleanup(void);
 static void   keyEvent( unsigned char key, int x, int y);
 static void   mainLoop(void);
-static void   draw( void );
+static void   draw(int i);
 
 BlackJack blackjack;
 
@@ -66,10 +67,13 @@ static void   keyEvent( unsigned char key, int x, int y)
 {
     /* quit if the ESC key is pressed */
     if( key == 0x1b ) {
-        printf("*** %f (frame/sec)\n", (double)_count/arUtilTimer());
+       /* printf("*** %f (frame/sec)\n", (double)_count/arUtilTimer());
         cleanup();
-        exit(0);
-    }
+        exit(0);*/
+		blackjack.initGame();
+    }else if(key == GLUT_KEY_F1){
+		blackjack.initGame();
+	}
 }
 
 /* main loop */
@@ -98,24 +102,28 @@ static void mainLoop(void)
     }
 
     arVideoCapNext();
+	for(int i = 0; i < blackjack.getPatts().size(); i++){
+		 /* check for object visibility */
+		k = -1;
+		for( j = 0; j < marker_num; j++ ) {
+			if( blackjack.getPatts()[i].id == marker_info[j].id ) {
+				if( k == -1 ) k = j;
+				else if( marker_info[k].cf < marker_info[j].cf ) k = j;
+			}
+		}
+		if( k == -1 ) {
+			argSwapBuffers();
+			continue;
+		}
 
-    /* check for object visibility */
-    k = -1;
-    for( j = 0; j < marker_num; j++ ) {
-        if( patt_id == marker_info[j].id ) {
-            if( k == -1 ) k = j;
-            else if( marker_info[k].cf < marker_info[j].cf ) k = j;
-        }
-    }
-    if( k == -1 ) {
-        argSwapBuffers();
-        return;
-    }
+		/* get the transformation between the marker and the real camera */
+		double aux[3][4];
+		arGetTransMat(&marker_info[k], blackjack.getPatts()[i].center, blackjack.getPatts()[i].width, blackjack.getPatts()[i].trans);
 
-    /* get the transformation between the marker and the real camera */
-    arGetTransMat(&marker_info[k], patt_center, patt_width, patt_trans);
-
-    draw();
+		 draw(i);
+	}
+	//printf("trans- %f", blackjack.getPatts()[1].id);
+ 
 
     argSwapBuffers();
 
@@ -125,6 +133,7 @@ static void mainLoop(void)
 static void init( void )
 {
     ARParam  wparam;
+	blackjack = BlackJack();
 	
     /* open the video path */
     if( arVideoOpen( vconf ) < 0 ) exit(0);
@@ -142,12 +151,18 @@ static void init( void )
     printf("*** Camera Parameter ***\n");
     arParamDisp( &cparam );
 
-    if( (patt_id=arLoadPatt(patt_name)) < 0 ) {
-        printf("pattern load error !!\n");
-        exit(0);
-    }
+	for(int i = 0; i < blackjack.getPatts().size(); i++){
+		int id;
+		char *name = blackjack.getPatts()[i].name;
+		if( (id = arLoadPatt(name)) < 0 ) {
+			printf("pattern load error !!\n");
+			exit(0);
+		}
 
+		blackjack.getPatts()[i].id = id;
+		//printf("*** %i (tese)\n",patt.id);
 
+	}
 
     /* open the graphics window */
     argInit( &cparam, 1.0, 0, 0, 0, 0 );
@@ -159,9 +174,11 @@ static void init( void )
 
 
 	//load cards
-	blackjack = BlackJack();
+
 	blackjack.loadCards();
-	blackjack.initGame();
+	//blackjack.initGame();
+
+
 
 }
 
@@ -173,8 +190,9 @@ static void cleanup(void)
     argCleanup();
 }
 
-static void draw( void )
+static void draw(int i )
 {
+		//printf("draw!!!!");
     double    gl_para[16];
     GLfloat   mat_ambient[]     = {1.0, 1.0, 1.0, 1.0};
     GLfloat   mat_flash[]       = {1.0, 1.0, 1.0, 1.0};
@@ -190,10 +208,13 @@ static void draw( void )
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
+
+
     
     /* load the camera transformation matrix */
-    argConvGlpara(patt_trans, gl_para);
-    glMatrixMode(GL_MODELVIEW);
+	argConvGlpara(blackjack.getPatts()[i].trans, gl_para);
+  
+	glMatrixMode(GL_MODELVIEW);
     glLoadMatrixd( gl_para );
 
     glEnable(GL_LIGHTING);
@@ -205,26 +226,23 @@ static void draw( void )
     glMaterialfv(GL_FRONT, GL_SHININESS, mat_flash_shiny);	
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMatrixMode(GL_MODELVIEW);
-    
-	/*
-	glTranslatef( 0.0, 0.0, 3 );
-   // glutSolidCube(50.0)
-	
-	
-	
-	int comp = 50;
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 3);
-	glBegin(GL_POLYGON);
-		glNormal3d(0.0,1.0,0.0); 
-		glTexCoord2f(0.0,0.0);glVertex3d(0, 0, -1);
-		glTexCoord2f(1.0,0.0);glVertex3d(comp, 0,  -1);
-		glTexCoord2f(1.0,1.0);glVertex3d( comp, (comp * 363)/250, -1);
-		glTexCoord2f(0.0,1.0);glVertex3d( 0, (comp * 363)/250, -1);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
+/*
+	double *r;
+	r = blackjack.posDiferPatterns(0, 1);
 	*/
-	blackjack.drawPacks();
+    
+	switch(i){
+	case 0:
+		/*glPushMatrix();
+		glTranslatef( *r, *(r+1), *(r+2) );*/
+		blackjack.drawPackDiller();
+		//glPopMatrix();
+		break;
+	case 1:
+		blackjack.drawDispenser();
+		break;
+	}
+
 
 	
     glDisable( GL_LIGHTING );

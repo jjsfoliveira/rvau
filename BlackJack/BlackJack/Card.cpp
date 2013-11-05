@@ -5,8 +5,7 @@ Card::Card(int s, int n)
 {
 	score = s;
 	imageNum = n;
-
-
+	st = WAIT;
 }
 
 
@@ -38,5 +37,18 @@ void Card::drawCard(float comp){
 		glTexCoord2f(0.0,1.0);glVertex3d( 0, (comp * 363)/250, -1);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+}
+
+void Card::setState(){
+	switch(st){
+	case WAIT: 
+		st = MOVE;
+		return;
+	case MOVE:
+		st = FINISH;
+		return;
+	case FINISH:
+		return;
+	}
 }
 

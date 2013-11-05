@@ -14,6 +14,10 @@
 #include "RGBpixmap.h"
 
 #pragma once
+
+
+enum state {WAIT, MOVE, FINISH};
+
 class Card
 {
 public:
@@ -25,15 +29,21 @@ private:
 
 public:
 	
-	float x;
-	float y;
-	bool move;
 	
+	double x;
+	double y;
+	double z;
+	state st;
+
+	double delta_x;
+	double delta_y;
+	double delta_z;
 
 	int getScore();
 	int getImageNum();
 	void setScore(int s);
 	void setImageNum(int n);
 	void drawCard(float comp);
+	void setState();
 };
 

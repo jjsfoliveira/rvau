@@ -72,12 +72,14 @@
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Pattern.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="RGBpixmap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Pattern.h" />
     <ClInclude Include="RGBpixmap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,11 +3,20 @@
 
 Dispenser::Dispenser(void)
 {
-	string inputfile = "dispenser.obj";
-	string err = tinyobj::LoadObj(shapes, inputfile.c_str());
+	string filename = "assets/dispenser.obj";
+
+
+	string folder="";
+    size_t lastSlash=filename.find_last_of('/');
+    if (lastSlash!=string::npos) {
+            folder=filename.substr(0,lastSlash+1);
+    }
+	string err = tinyobj::LoadObj(shapes, filename.c_str(), folder.c_str());
 
 	if (!err.empty()) {
 	  cout << err << endl;
+	  int a;
+	  cin >> a;
 	  exit(1);
 	}
 	std::cout << "# of shapes : " << shapes.size() << std::endl;

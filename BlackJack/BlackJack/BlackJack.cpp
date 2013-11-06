@@ -285,12 +285,12 @@ void BlackJack::initGame(){
 }
 
 void BlackJack::resetGame(){
-	for(int i = 0; i < packDiller.size(); i++){
+	for(unsigned int i = 0; i < packDiller.size(); i++){
 		playingCards.push(packDiller[i]);
 	}
 	packDiller.clear();
 
-	for(int i = 0; i < packPlayer.size(); i++){
+	for(unsigned int i = 0; i < packPlayer.size(); i++){
 		playingCards.push(packPlayer[i]);
 	}
 	packPlayer.clear();
@@ -312,7 +312,7 @@ void BlackJack::drawPackDiller(){
 	float comp = 25;
 	glPushMatrix();
 	glTranslatef(0,0.0,3.0);
-	for(int i = 0; i< packDiller.size(); i++){
+	for(unsigned int i = 0; i< packDiller.size(); i++){
 		glPushMatrix();
 		glTranslatef(x_init+((comp+5)*i),0.0,0.0);
 		packDiller[i].drawCard(comp);

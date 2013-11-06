@@ -1,6 +1,9 @@
 #include "BlackJack.h"
 
 
+
+using namespace std;
+
 BlackJack::BlackJack(void)
 {
 	playingCards = stack<Card>();
@@ -9,6 +12,8 @@ BlackJack::BlackJack(void)
 	n_iterations = 20;
 
 	initPatts();
+	dispenser = Dispenser();
+	dispenser.loadDispenser();
 }
 
 
@@ -335,12 +340,9 @@ void BlackJack::initPatts(){
 	index_dispenser = 1;
 }
 
-void BlackJack::drawDispenser(){
-	glPushMatrix();
-	glTranslatef( 0.0, 0.0, 25.0 );
-    glutSolidCube(25.0);
-	glPopMatrix();
-}
+
+
+
 
 double* BlackJack::posDiferPatterns(int marker1, int marker2){
 	double wmat1[3][4], wmat2[3][4];
@@ -353,4 +355,11 @@ double* BlackJack::posDiferPatterns(int marker1, int marker2){
 	r[1] = wmat2[1][3];
 	r[2] = wmat2[2][3];
 	return r;
+}
+
+
+
+void BlackJack::drawDispenser()
+{
+	dispenser.render();
 }

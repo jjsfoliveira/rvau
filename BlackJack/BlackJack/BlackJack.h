@@ -3,8 +3,9 @@
 #include "Pattern.h"
 #include <AR/ar.h>
 #include <stack>  
+#include <iostream>
 #include <time.h>
-
+#include "Dispenser.h"
 using namespace std;
 
 
@@ -24,7 +25,6 @@ public:
 	void drawDispenser();
 	void drawPackPlayer();
 	void drawPackDiller();
-
 	double* posDiferPatterns(int marker1, int marker2);
 //	void drawPacks();
 
@@ -39,6 +39,9 @@ private:
 	vector<Card> packPlayer;
 	vector<Card> packDiller;
 	vector<Pattern> patts;
+	Dispenser dispenser;
+	
+
 
 	//aux
 	float x_init;
@@ -46,5 +49,7 @@ private:
 	int index_diller;
 	int index_dispenser;
 	int index_player;
+	
 };
+
 

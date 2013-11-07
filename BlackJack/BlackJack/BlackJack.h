@@ -4,6 +4,7 @@
 #include <AR/ar.h>
 #include <stack>  
 #include <time.h>
+#include "Dispenser.h"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ private:
 	vector<Card> packPlayer;
 	vector<Card> packDiller;
 	vector<Pattern> patts;
+	Dispenser dispenser;
 
 	//aux
 	float x_init;

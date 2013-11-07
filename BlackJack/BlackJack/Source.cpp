@@ -112,7 +112,7 @@ static void mainLoop(void)
 			}
 		}
 		if( k == -1 ) {
-			argSwapBuffers();
+			//argSwapBuffers();
 			continue;
 		}
 
@@ -133,7 +133,6 @@ static void mainLoop(void)
 static void init( void )
 {
     ARParam  wparam;
-	blackjack = BlackJack();
 	
     /* open the video path */
     if( arVideoOpen( vconf ) < 0 ) exit(0);
@@ -160,7 +159,6 @@ static void init( void )
 		}
 
 		blackjack.getPatts()[i].id = id;
-		//printf("*** %i (tese)\n",patt.id);
 
 	}
 

@@ -8,7 +8,13 @@ BlackJack::BlackJack(void)
 	x_init = -30;
 	n_iterations = 20;
 
+
+	cout << "init dispenser" << endl;
+	dispenser.loadDispenser();
+	cout << "init patts" << endl;
 	initPatts();
+
+	
 }
 
 
@@ -337,8 +343,8 @@ void BlackJack::initPatts(){
 
 void BlackJack::drawDispenser(){
 	glPushMatrix();
-	glTranslatef( 0.0, 0.0, 25.0 );
-    glutSolidCube(25.0);
+	glScalef(50.f, 50.f, 50.f);
+	dispenser.render();
 	glPopMatrix();
 }
 

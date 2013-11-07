@@ -4,6 +4,7 @@
 #include <AR/ar.h>
 #include <stack>  
 #include <time.h>
+#include "Dispenser.h"
 
 using namespace std;
 
@@ -44,7 +45,7 @@ private:
 	stack<Card> playingCards;
 	RGBpixmap pixmap;
 	int score;
-
+	Dispenser dispenser;
 	vector<Pattern> patts;
 
 	//aux
@@ -52,5 +53,6 @@ private:
 	int index_diller;
 	int index_dispenser;
 	int index_player;
+
 };
 

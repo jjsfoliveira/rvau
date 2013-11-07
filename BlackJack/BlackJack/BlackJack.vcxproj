@@ -72,15 +72,19 @@
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Dispenser.cpp" />
     <ClCompile Include="Pattern.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="RGBpixmap.cpp" />
+    <ClCompile Include="tiny_obj_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Dispenser.h" />
     <ClInclude Include="Pattern.h" />
     <ClInclude Include="RGBpixmap.h" />
+    <ClInclude Include="tiny_obj_loader.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

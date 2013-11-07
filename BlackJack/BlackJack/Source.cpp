@@ -163,7 +163,7 @@ static void mainLoop(void)
 static void init( void )
 {
     ARParam  wparam;
-	blackjack = BlackJack();
+	//blackjack = BlackJack();
 	
     /* open the video path */
     if( arVideoOpen( vconf ) < 0 ) exit(0);

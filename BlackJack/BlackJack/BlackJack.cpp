@@ -8,7 +8,7 @@ BlackJack::BlackJack(void)
 	packPlayer = vector<Card>();
 	packDiller = vector<Card>();
 	patts = vector<Pattern>();
-
+	dispenser.loadDispenser();
 	initPatts();
 }
 
@@ -345,8 +345,8 @@ void BlackJack::initPatts(){
 
 void BlackJack::drawDispenser(){
 	glPushMatrix();
-	glTranslatef( 0.0, 0.0, 25.0 );
-    glutSolidCube(25.0);
+	glScalef(45.f,45.f,45.f);
+	dispenser.render();
 	glPopMatrix();
 }
 

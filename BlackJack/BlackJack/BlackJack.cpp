@@ -12,8 +12,8 @@ BlackJack::BlackJack(void)
 	n_iterations = 20;
 
 	initPatts();
-	dispenser = Dispenser();
-	dispenser.loadDispenser();
+	//dispenser = Dispenser();
+	//dispenser.loadDispenser();
 }
 
 
@@ -25,7 +25,7 @@ void BlackJack::loadCards(){
 
 	vector<Card> Cards = vector<Card>();
 
-	pixmap.readBMPFile("cards/2_of_clubs.bmp");
+	/*pixmap.readBMPFile("cards/2_of_clubs.bmp");
 	pixmap.setTexture(3);
 	Cards.push_back(Card(2,3));
 
@@ -250,7 +250,7 @@ void BlackJack::loadCards(){
 		int random = rand()%Cards.size();
 		playingCards.push(Cards[random]);
 		Cards.erase(Cards.begin()+random);
-	}
+	}*/
 }
 
 

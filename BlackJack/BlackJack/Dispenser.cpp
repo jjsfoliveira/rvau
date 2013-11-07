@@ -19,7 +19,7 @@ Dispenser::Dispenser(void)
 	  cin >> a;
 	  exit(1);
 	}
-	std::cout << "# of shapes : " << shapes.size() << std::endl;
+	
 }
 
 

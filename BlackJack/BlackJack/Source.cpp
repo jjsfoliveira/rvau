@@ -235,11 +235,11 @@ static void draw(int i )
 	case 0:
 		/*glPushMatrix();
 		glTranslatef( *r, *(r+1), *(r+2) );*/
-		blackjack.drawPackDiller();
+		//blackjack.drawPackDiller();
 		//glPopMatrix();
 		break;
 	case 1:
-		blackjack.drawDispenser();
+		//blackjack.drawDispenser();
 		break;
 	}
 

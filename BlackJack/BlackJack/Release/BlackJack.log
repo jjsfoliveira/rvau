@@ -1,24 +1,9 @@
-﻿Build started 06/11/2013 18:43:05.
+﻿Build started 07/11/2013 09:23:59.
      1>Project "C:\Users\Tiago\Documents\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp Dispenser.cpp Source.cpp tiny_obj_loader.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp
          BlackJack.cpp
      1>BlackJack.cpp(357): warning C4172: returning address of local variable or temporary
-         Dispenser.cpp
-         Source.cpp
-     1>Source.cpp(105): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(120): warning C4101: 'aux' : unreferenced local variable
-     1>Source.cpp(154): warning C4018: '<' : signed/unsigned mismatch
-         tiny_obj_loader.cpp
-     1>tiny_obj_loader.cpp(173): warning C4018: '>' : signed/unsigned mismatch
-     1>tiny_obj_loader.cpp(339): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(570): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(586): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(642): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tiago\Documents\rvau\BlackJack\Release\BlackJack.exe" /NOLOGO /LIBPATH:.\lib libAR.lib libARgsub.lib libARvideo.lib opengl32.lib glu32.lib glui32.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tiago\Documents\rvau\BlackJack\Release\BlackJack.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tiago\Documents\rvau\BlackJack\Release\BlackJack.lib" /MACHINE:X86 /SAFESEH Release\BlackJack.obj
          Release\Card.obj
@@ -34,4 +19,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.57
+Time Elapsed 00:00:03.05

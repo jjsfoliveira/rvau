@@ -14,6 +14,12 @@ class BlackJack
 public:
 	BlackJack(void);
 	~BlackJack(void);
+	const static int BlackJack::delta_time = 300;
+	const static int BlackJack::comp = 25;
+	const static int BlackJack::x_init = -30;
+	vector<Card> packPlayer;
+	vector<Card> packDiller;
+
 	void loadCards();
 	void initGame();
 	void resetGame();
@@ -32,17 +38,17 @@ public:
 
 
 
+
+
 private:
 	stack<Card> playingCards;
 	RGBpixmap pixmap;
 	int score;
-	vector<Card> packPlayer;
-	vector<Card> packDiller;
+
 	vector<Pattern> patts;
 
 	//aux
-	float x_init;
-	double n_iterations; 
+	
 	int index_diller;
 	int index_dispenser;
 	int index_player;

@@ -37,7 +37,7 @@ int             _count = 0;
 char           *cparam_name    = "Data/camera_para.dat";
 ARParam         cparam;
 
-
+int temp = 20;
 
 //Pattern patt = Pattern("Data/patt.hiro", 80.0, 0.0,0.0);
 
@@ -52,13 +52,43 @@ static void   draw(int i);
 
 BlackJack blackjack;
 
+
+void myTransformations(int dummy){
+	int j = 0;
+	for(int i = 0; i< blackjack.packDiller.size(); i++){
+		switch(blackjack.packDiller[i].st){
+		case WAIT:
+			break;
+		case MOVE:
+			blackjack.packDiller[i].it--;
+			if(blackjack.packDiller[i].it <= 0){
+				blackjack.packDiller[i].st = FINISH;
+				blackjack.packDiller[i].x = BlackJack::x_init+((BlackJack::comp+5)*j);
+				blackjack.packDiller[i].y = 0;
+				blackjack.packDiller[i].z = 0;
+				break;
+			}
+			blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
+			blackjack.packDiller[i].y =blackjack.packDiller[i].y - blackjack.packDiller[i].delta_y;
+			blackjack.packDiller[i].z =blackjack.packDiller[i].z - blackjack.packDiller[i].delta_z;
+			break;
+		
+		case FINISH:
+			j++;
+			break;
+		}
+	}
+
+	glutTimerFunc(temp, myTransformations, 0);
+}
+
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	init();
 	
     arVideoCapStart();
-
+	glutTimerFunc(temp, myTransformations, 0);
     argMainLoop( NULL, keyEvent, mainLoop );
 	return (0);
 }
@@ -112,7 +142,7 @@ static void mainLoop(void)
 			}
 		}
 		if( k == -1 ) {
-			argSwapBuffers();
+			//argSwapBuffers();
 			continue;
 		}
 
@@ -249,3 +279,5 @@ static void draw(int i )
 
     glDisable( GL_DEPTH_TEST );
 }
+
+

@@ -28,16 +28,17 @@ private:
 	int score;
 
 public:
+	const static int Card::n_iterations = 200; 
 	
-	
-	double x;
-	double y;
-	double z;
+	float x;
+	float y;
+	float z;
 	state st;
+	int it;
 
-	double delta_x;
-	double delta_y;
-	double delta_z;
+	float delta_x;
+	float delta_y;
+	float delta_z;
 
 	int getScore();
 	int getImageNum();

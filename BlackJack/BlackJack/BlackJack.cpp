@@ -5,8 +5,9 @@ BlackJack::BlackJack(void)
 {
 	playingCards = stack<Card>();
 	patts = vector<Pattern>();
-	x_init = -30;
-	n_iterations = 20;
+	packPlayer = vector<Card>();
+	packDiller = vector<Card>();
+	patts = vector<Pattern>();
 
 	initPatts();
 }
@@ -250,24 +251,27 @@ void BlackJack::loadCards(){
 
 
 void BlackJack::initGame(){
-
+	
 	Card c = playingCards.top();
 	double *r;
-	printf("%i", index_dispenser);
-	r = posDiferPatterns(index_diller, index_dispenser);
-	
+	printf("%i", Card::n_iterations);
+	r = posDiferPatterns(0, 1);
+	double rx = *r;
+	double ry = *(r+1);
+	double rz = *(r+2);
+
+
 	c.x = *r;
 	c.y=*(r+1);
 	c.z=*(r+2);
 	c.st = MOVE;
-	c.delta_x = *r/n_iterations;
-	c.delta_y = *(r+1)/n_iterations;
-	c.delta_z = *(r+2)/n_iterations;
+	c.delta_x = *r/Card::n_iterations;
+	c.delta_y = *(r+1)/Card::n_iterations;
+	c.delta_z = *(r+2)/Card::n_iterations;
 	packDiller.push_back(c);
 	playingCards.pop();
 
-	
-	
+
 	packDiller.push_back(playingCards.top());
 	playingCards.pop();
 
@@ -304,17 +308,21 @@ void BlackJack::giveCardD(){
 
 
 void BlackJack::drawPackDiller(){
-	float comp = 25;
 	glPushMatrix();
 	glTranslatef(0,0.0,3.0);
-	for(int i = 0; i< packDiller.size(); i++){
-		glPushMatrix();
-		glTranslatef(x_init+((comp+5)*i),0.0,0.0);
-		packDiller[i].drawCard(comp);
-		glPopMatrix();
+	for(int i = 0; i < packDiller.size(); i++){
+		if(packDiller[i].st != WAIT){
+			glPushMatrix();
+			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
+			packDiller[i].drawCard(comp);
+			glPopMatrix();
+		}
 	}
 	glPopMatrix();
+	
 }
+
+
 
 
 void BlackJack::drawPackPlayer(){
@@ -328,7 +336,7 @@ vector<Pattern>& BlackJack::getPatts(){
 void BlackJack::initPatts(){
 	
 	//patterns diller
-	patts.push_back(Pattern("Data/patt.hiro", 80.0, 0.0,0.0));
+	patts.push_back(Pattern("Data/patt.hiro", 80.0, -30.0,0.0));
 	index_diller = 0;
 	//patterns dispenser
 	patts.push_back(Pattern("Data/patt.b", 40.0, 0.0,0.0));
@@ -352,5 +360,7 @@ double* BlackJack::posDiferPatterns(int marker1, int marker2){
 	r[0] = wmat2[0][3];
 	r[1] = wmat2[1][3];
 	r[2] = wmat2[2][3];
+
+	printf("t- %f, tt- %f, ttt- %f", r[0], r[1], r[2]);
 	return r;
 }

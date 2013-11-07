@@ -6,6 +6,8 @@ Card::Card(int s, int n)
 	score = s;
 	imageNum = n;
 	st = WAIT;
+	it = n_iterations;
+	x,y,z,delta_x, delta_y, delta_z =0;
 }
 
 

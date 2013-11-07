@@ -3,6 +3,7 @@
 #include "Pattern.h"
 #include <AR/ar.h>
 #include <stack>  
+#include <iostream>
 #include <time.h>
 #include "Dispenser.h"
 
@@ -25,7 +26,6 @@ public:
 	void drawDispenser();
 	void drawPackPlayer();
 	void drawPackDiller();
-
 	double* posDiferPatterns(int marker1, int marker2);
 //	void drawPacks();
 
@@ -48,5 +48,7 @@ private:
 	int index_diller;
 	int index_dispenser;
 	int index_player;
+	
 };
+
 

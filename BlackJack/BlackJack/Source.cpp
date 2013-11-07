@@ -233,11 +233,11 @@ static void draw(int i )
 	case 0:
 		/*glPushMatrix();
 		glTranslatef( *r, *(r+1), *(r+2) );*/
-		blackjack.drawPackDiller();
+		//blackjack.drawPackDiller();
 		//glPopMatrix();
 		break;
 	case 1:
-		blackjack.drawDispenser();
+		//blackjack.drawDispenser();
 		break;
 	}
 
@@ -247,3 +247,5 @@ static void draw(int i )
 
     glDisable( GL_DEPTH_TEST );
 }
+
+

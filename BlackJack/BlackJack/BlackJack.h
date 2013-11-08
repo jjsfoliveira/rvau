@@ -16,8 +16,6 @@ public:
 	BlackJack(void);
 	~BlackJack(void);
 	const static int BlackJack::delta_time = 300;
-	const static int BlackJack::comp = 25;
-	const static int BlackJack::x_init = -30;
 	vector<Card> packPlayer;
 	vector<Card> packDiller;
 
@@ -32,7 +30,7 @@ public:
 	void drawPackPlayer();
 	void drawPackDiller();
 
-	double* posDiferPatterns(int marker1, int marker2);
+	vector<double> posDiferPatterns(int marker1, int marker2);
 //	void drawPacks();
 
 

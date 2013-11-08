@@ -241,6 +241,9 @@ void BlackJack::loadCards(){
 	pixmap.setTexture(54);
 	Cards.push_back(Card(10,54));
 
+	pixmap.readBMPFile("cards/cardback.bmp");
+	pixmap.setTexture(55);
+
 	while(!Cards.empty()){
 		srand (time(NULL));
 		int random = rand()%Cards.size();
@@ -253,21 +256,14 @@ void BlackJack::loadCards(){
 void BlackJack::initGame(){
 	
 	Card c = playingCards.top();
-	double *r;
-	printf("%i", Card::n_iterations);
+	
+	vector<double> r;
 	r = posDiferPatterns(0, 1);
-	double rx = *r;
-	double ry = *(r+1);
-	double rz = *(r+2);
+	double rx = r[0];
+	double ry = r[1];
+	double rz = r[2];
+	c.initCard_1(rx, ry, rz);
 
-
-	c.x = *r;
-	c.y=*(r+1);
-	c.z=*(r+2);
-	c.st = MOVE;
-	c.delta_x = *r/Card::n_iterations;
-	c.delta_y = *(r+1)/Card::n_iterations;
-	c.delta_z = *(r+2)/Card::n_iterations;
 	packDiller.push_back(c);
 	playingCards.pop();
 
@@ -314,7 +310,7 @@ void BlackJack::drawPackDiller(){
 		if(packDiller[i].st != WAIT){
 			glPushMatrix();
 			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
-			packDiller[i].drawCard(comp);
+			packDiller[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
 	}
@@ -336,7 +332,7 @@ vector<Pattern>& BlackJack::getPatts(){
 void BlackJack::initPatts(){
 	
 	//patterns diller
-	patts.push_back(Pattern("Data/patt.hiro", 80.0, -30.0,0.0));
+	patts.push_back(Pattern("Data/patt.hiro", 80.0, 0.0 ,0.0));
 	index_diller = 0;
 	//patterns dispenser
 	patts.push_back(Pattern("Data/patt.b", 40.0, 0.0,0.0));
@@ -347,20 +343,19 @@ void BlackJack::drawDispenser(){
 	glPushMatrix();
 	glScalef(45.f,45.f,45.f);
 	dispenser.render();
+	//glutSolidCube(25);
 	glPopMatrix();
 }
 
-double* BlackJack::posDiferPatterns(int marker1, int marker2){
+vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
 	double wmat1[3][4], wmat2[3][4];
 
 	arUtilMatInv(patts[marker1].trans, wmat1);
     arUtilMatMul(wmat1, patts[marker2].trans, wmat2);
 
-	double r[3];
-	r[0] = wmat2[0][3];
-	r[1] = wmat2[1][3];
-	r[2] = wmat2[2][3];
-
-	printf("t- %f, tt- %f, ttt- %f", r[0], r[1], r[2]);
+	vector<double> r;
+	r.push_back(wmat2[0][3]);
+	r.push_back(wmat2[1][3]);
+	r.push_back(wmat2[2][3]);
 	return r;
 }

@@ -16,7 +16,7 @@
 #pragma once
 
 
-enum state {WAIT, MOVE, FINISH};
+enum state {WAIT, MOVE_1, MOVE_2, FINISH};
 
 class Card
 {
@@ -28,8 +28,10 @@ private:
 	int score;
 
 public:
-	const static int Card::n_iterations = 200; 
-	
+	const static int Card::n_iterations = 100; 
+	const static int Card::comp = 50;
+	const static int Card::per_it = 20;
+	const static int Card::x_init = -30;
 	float x;
 	float y;
 	float z;
@@ -46,5 +48,7 @@ public:
 	void setImageNum(int n);
 	void drawCard(float comp);
 	void setState();
+	void initCard_1(double _x, double _y, double _z);
+	void initCard_2(int n_finish);
 };
 

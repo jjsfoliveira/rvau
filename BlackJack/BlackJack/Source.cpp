@@ -59,21 +59,37 @@ void myTransformations(int dummy){
 		switch(blackjack.packDiller[i].st){
 		case WAIT:
 			break;
-		case MOVE:
+		case MOVE_1:
+			if(blackjack.packDiller[i].it > Card::n_iterations*(1-(float)(Card::per_it/100.0))){
+				blackjack.packDiller[i].it--;
+				blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
+				break;
+			}else{
+				blackjack.packDiller[i].initCard_2(j);
+				break;
+			}
+		case MOVE_2:
 			blackjack.packDiller[i].it--;
 			if(blackjack.packDiller[i].it <= 0){
 				blackjack.packDiller[i].st = FINISH;
-				blackjack.packDiller[i].x = BlackJack::x_init+((BlackJack::comp+5)*j);
+				blackjack.packDiller[i].x = Card::x_init+((Card::comp+5)*j);
 				blackjack.packDiller[i].y = 0;
 				blackjack.packDiller[i].z = 0;
+				if(i == 0 && blackjack.packDiller.size() == 2){
+					vector<double> r;
+					r = blackjack.posDiferPatterns(0, 1);
+					double rx = r[0];
+					double ry = r[1];
+					double rz = r[2];
+					blackjack.packDiller[1].initCard_1(rx, ry, rz);
+				}
 				break;
 			}
 			blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
 			blackjack.packDiller[i].y =blackjack.packDiller[i].y - blackjack.packDiller[i].delta_y;
 			blackjack.packDiller[i].z =blackjack.packDiller[i].z - blackjack.packDiller[i].delta_z;
-			break;
-		
 		case FINISH:
+
 			j++;
 			break;
 		}
@@ -176,6 +192,8 @@ static void init( void )
         printf("Camera parameter load error !!\n");
         exit(0);
     }
+
+	
     arParamChangeSize( &wparam, xsize, ysize, &cparam );
     arInitCparam( &cparam );
     printf("*** Camera Parameter ***\n");
@@ -223,6 +241,7 @@ static void cleanup(void)
 static void draw(int i )
 {
 		//printf("draw!!!!");
+	//glCullFace(GL_FRONT);
     double    gl_para[16];
     GLfloat   mat_ambient[]     = {1.0, 1.0, 1.0, 1.0};
     GLfloat   mat_flash[]       = {1.0, 1.0, 1.0, 1.0};

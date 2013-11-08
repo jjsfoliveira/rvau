@@ -30,10 +30,17 @@
     <ClCompile Include="Pattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Dispenser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tiny_obj_loader.cpp">
+=======
+    <ClCompile Include="tiny_obj_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dispenser.cpp">
+>>>>>>> 33af4e5d1a82bcaab599b1d13d2e9e2290984338
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,10 +57,17 @@
     <ClInclude Include="Pattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Dispenser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tiny_obj_loader.hpp">
+=======
+    <ClInclude Include="tiny_obj_loader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dispenser.h">
+>>>>>>> 33af4e5d1a82bcaab599b1d13d2e9e2290984338
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

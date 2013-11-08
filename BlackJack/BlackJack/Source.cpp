@@ -82,12 +82,61 @@ void myTransformations(int dummy){
 					double ry = r[1];
 					double rz = r[2];
 					blackjack.packDiller[1].initCard_1(rx, ry, rz);
+				}else if(i == 1 && blackjack.packPlayer.size() != 0){
+					vector<double> r;
+					r = blackjack.posDiferPatterns(3, 1);
+					double rx = r[0];
+					double ry = r[1];
+					double rz = r[2];
+					blackjack.packPlayer[0].initCard_1(rx, ry, rz);
 				}
 				break;
 			}
 			blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
 			blackjack.packDiller[i].y =blackjack.packDiller[i].y - blackjack.packDiller[i].delta_y;
 			blackjack.packDiller[i].z =blackjack.packDiller[i].z - blackjack.packDiller[i].delta_z;
+		case FINISH:
+
+			j++;
+			break;
+		}
+	}
+
+
+	j = 0;
+	for(int i = 0; i< blackjack.packPlayer.size(); i++){
+		switch(blackjack.packPlayer[i].st){
+		case WAIT:
+			break;
+		case MOVE_1:
+			if(blackjack.packPlayer[i].it > Card::n_iterations*(1-(float)(Card::per_it/100.0))){
+				blackjack.packPlayer[i].it--;
+				blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
+				break;
+			}else{
+				blackjack.packPlayer[i].initCard_2(j);
+				break;
+			}
+		case MOVE_2:
+			blackjack.packPlayer[i].it--;
+			if(blackjack.packPlayer[i].it <= 0){
+				blackjack.packPlayer[i].st = FINISH;
+				blackjack.packPlayer[i].x = Card::x_init+((Card::comp+5)*j);
+				blackjack.packPlayer[i].y = 0;
+				blackjack.packPlayer[i].z = 0;
+				if(i == 0 && blackjack.packPlayer.size() == 2){
+					vector<double> r;
+					r = blackjack.posDiferPatterns(3, 1);
+					double rx = r[0];
+					double ry = r[1];
+					double rz = r[2];
+					blackjack.packPlayer[1].initCard_1(rx, ry, rz);
+				}
+				break;
+			}
+			blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
+			blackjack.packPlayer[i].y =blackjack.packPlayer[i].y - blackjack.packPlayer[i].delta_y;
+			blackjack.packPlayer[i].z =blackjack.packPlayer[i].z - blackjack.packPlayer[i].delta_z;
 		case FINISH:
 
 			j++;
@@ -301,6 +350,9 @@ static void draw(int i )
 		break;
 	case 2:
 		blackjack.drawButton();
+		break;
+	case 3:
+		blackjack.drawPackPlayer();
 		break;
 	}
 

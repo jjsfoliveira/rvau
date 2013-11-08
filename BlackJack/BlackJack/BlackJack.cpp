@@ -332,11 +332,21 @@ void BlackJack::drawPackDiller(){
 
 
 
-/*
-void BlackJack::drawPackPlayer(){
 
+void BlackJack::drawPackPlayer(){
+	glPushMatrix();
+	glTranslatef(0,0.0,3.0);
+	for(int i = 0; i < packPlayer.size(); i++){
+		if(packPlayer[i].st != WAIT){
+			glPushMatrix();
+			glTranslatef(packPlayer[i].x,packPlayer[i].y,packPlayer[i].z);
+			packPlayer[i].drawCard(Card::comp);
+			glPopMatrix();
+		}
+	}
+	glPopMatrix();
 }
-*/
+
 
 
 
@@ -432,6 +442,9 @@ void BlackJack::initPatts(){
 	//patterns for buttons
 	patts.push_back(Pattern("Data/multi/marker.dat", 40.0, 0.0,0.0, "multi"));
 	index_dispenser = 2;
+	//patterns for player
+	patts.push_back(Pattern("Data/patt.kanji", 80.0, 0.0,0.0, "simple"));
+
 }
 
 

@@ -1,4 +1,16 @@
+<<<<<<< HEAD
 #include <map>
+=======
+// C++11 Support
+#if __cplusplus <= 199711L
+        #include <map>
+        #define hashmap map
+#else
+        #include <unordered_map>
+        #define hashmap unordered_map        
+#endif
+
+>>>>>>> 33af4e5d1a82bcaab599b1d13d2e9e2290984338
 #include <vector>
 #include "tiny_obj_loader.hpp"
 #include <iostream>
@@ -60,7 +72,11 @@ class Dispenser
 {
 
 private:
+<<<<<<< HEAD
 	map<string,Material> materials;
+=======
+	hashmap<string,Material> materials;
+>>>>>>> 33af4e5d1a82bcaab599b1d13d2e9e2290984338
 	vector<Triangle> triangles;
 	vector<tinyobj::shape_t> shapes;
 	string lastUsed;

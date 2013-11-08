@@ -172,7 +172,8 @@ static void mainLoop(void)
 static void init( void )
 {
     ARParam  wparam;
-	//blackjack = BlackJack();
+
+
 	
     /* open the video path */
     if( arVideoOpen( vconf ) < 0 ) exit(0);
@@ -199,7 +200,6 @@ static void init( void )
 				printf("pattern load error !!\n");
 				exit(0);
 			}
-
 			blackjack.getPatts()[i].id = id;
 		}
 		else
@@ -210,6 +210,7 @@ static void init( void )
 			}
 		}
 		
+		blackjack.getPatts()[i].id = id;
 
 	}
 
@@ -284,11 +285,11 @@ static void draw(int i )
 	case 0:
 		/*glPushMatrix();
 		glTranslatef( *r, *(r+1), *(r+2) );*/
-		blackjack.drawPackDiller();
+		//blackjack.drawPackDiller();
 		//glPopMatrix();
 		break;
 	case 1:
-		blackjack.drawDispenser();
+		//blackjack.drawDispenser();
 		break;
 	case 2:
 		blackjack.drawButton();

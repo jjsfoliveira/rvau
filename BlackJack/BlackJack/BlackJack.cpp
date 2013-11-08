@@ -1,19 +1,28 @@
 #include "BlackJack.h"
 
 
+
+using namespace std;
+
 BlackJack::BlackJack(void)
 {
 
 	multiPattern = "Data/multi/marker.dat";
 	playingCards = stack<Card>();
 	patts = vector<Pattern>();
-	packPlayer = vector<Card>();
-	packDiller = vector<Card>();
 	patts = vector<Pattern>();
 	dispenser.loadDispenser();
 	buttonPick.push_back(0);
 	buttonPick.push_back(0);
 	buttonPick.push_back(0);
+
+	x_init = -30;
+	n_iterations = 20;
+
+
+	cout << "init dispenser" << endl;
+	dispenser.loadDispenser();
+	cout << "init patts" << endl;
 	initPatts();
 }
 
@@ -289,12 +298,12 @@ void BlackJack::initGame(){
 }
 
 void BlackJack::resetGame(){
-	for(int i = 0; i < packDiller.size(); i++){
+	for(unsigned int i = 0; i < packDiller.size(); i++){
 		playingCards.push(packDiller[i]);
 	}
 	packDiller.clear();
 
-	for(int i = 0; i < packPlayer.size(); i++){
+	for(unsigned int i = 0; i < packPlayer.size(); i++){
 		playingCards.push(packPlayer[i]);
 	}
 	packPlayer.clear();
@@ -315,13 +324,11 @@ void BlackJack::giveCardD(){
 void BlackJack::drawPackDiller(){
 	glPushMatrix();
 	glTranslatef(0,0.0,3.0);
-	for(int i = 0; i < packDiller.size(); i++){
-		if(packDiller[i].st != WAIT){
-			glPushMatrix();
-			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
-			packDiller[i].drawCard(comp);
-			glPopMatrix();
-		}
+	for(unsigned int i = 0; i< packDiller.size(); i++){
+		glPushMatrix();
+		glTranslatef(x_init+((comp+5)*i),0.0,0.0);
+		packDiller[i].drawCard(comp);
+		glPopMatrix();
 	}
 	glPopMatrix();
 	
@@ -429,12 +436,14 @@ void BlackJack::initPatts(){
 	index_dispenser = 2;
 }
 
+
 void BlackJack::drawDispenser(){
 	glPushMatrix();
 	glScalef(45.f,45.f,45.f);
 	dispenser.render();
 	glPopMatrix();
 }
+
 
 double* BlackJack::posDiferPatterns(int marker1, int marker2){
 	double wmat1[3][4], wmat2[3][4];
@@ -449,4 +458,11 @@ double* BlackJack::posDiferPatterns(int marker1, int marker2){
 
 	printf("t- %f, tt- %f, ttt- %f", r[0], r[1], r[2]);
 	return r;
+}
+
+
+
+void BlackJack::drawDispenser()
+{
+	dispenser.render();
 }

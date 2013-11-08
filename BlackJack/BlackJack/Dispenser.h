@@ -1,4 +1,5 @@
 #include <map>
+
 #include <vector>
 #include "tiny_obj_loader.hpp"
 #include <iostream>
@@ -61,6 +62,7 @@ class Dispenser
 
 private:
 	map<string,Material> materials;
+
 	vector<Triangle> triangles;
 	vector<tinyobj::shape_t> shapes;
 	string lastUsed;

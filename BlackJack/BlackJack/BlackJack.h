@@ -1,7 +1,9 @@
 #include <vector>
 #include "Card.h"
 #include "Pattern.h"
+#include <AR/gsub.h>
 #include <AR/ar.h>
+#include <AR/arMulti.h>
 #include <stack>  
 #include <time.h>
 #include "Dispenser.h"
@@ -31,7 +33,8 @@ public:
 	void drawDispenser();
 	void drawPackPlayer();
 	void drawPackDiller();
-
+	void drawButton();
+	ARMultiMarkerInfoT  *config;
 	double* posDiferPatterns(int marker1, int marker2);
 //	void drawPacks();
 
@@ -47,6 +50,8 @@ private:
 	int score;
 	Dispenser dispenser;
 	vector<Pattern> patts;
+	vector<int> buttonPick;
+	char *multiPattern;
 
 	//aux
 	

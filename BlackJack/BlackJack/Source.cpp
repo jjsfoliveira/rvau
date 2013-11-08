@@ -11,7 +11,7 @@
 #include <GLUT/glut.h>
 #endif
 
-
+#include <AR/arMulti.h>
 #include <AR/gsub.h>
 #include <AR/video.h>
 #include <AR/param.h>
@@ -113,6 +113,7 @@ static void mainLoop(void)
     ARMarkerInfo    *marker_info;
     int             marker_num;
     int             j, k;
+	double          err;
 
     /* grab a vide frame */
     if( (dataPtr = (ARUint8 *)arVideoGetImage()) == NULL ) {
@@ -132,6 +133,15 @@ static void mainLoop(void)
     }
 
     arVideoCapNext();
+	if( (err=arMultiGetTransMat(marker_info, marker_num, blackjack.config)) < 0 ) {
+		argSwapBuffers();
+		return;
+	}
+	if(err > 100.0 ) {
+		argSwapBuffers();
+		return;
+	}
+	draw(2);
 	for(int i = 0; i < blackjack.getPatts().size(); i++){
 		 /* check for object visibility */
 		k = -1;
@@ -152,7 +162,6 @@ static void mainLoop(void)
 
 		 draw(i);
 	}
-	//printf("trans- %f", blackjack.getPatts()[1].id);
  
 
     argSwapBuffers();
@@ -182,15 +191,25 @@ static void init( void )
     arParamDisp( &cparam );
 
 	for(int i = 0; i < blackjack.getPatts().size(); i++){
-		int id;
-		char *name = blackjack.getPatts()[i].name;
-		if( (id = arLoadPatt(name)) < 0 ) {
-			printf("pattern load error !!\n");
-			exit(0);
-		}
+		if(blackjack.getPatts()[i].type=="simple")
+		{
+			int id;
+			char *name = blackjack.getPatts()[i].name;
+			if( (id = arLoadPatt(name)) < 0 ) {
+				printf("pattern load error !!\n");
+				exit(0);
+			}
 
-		blackjack.getPatts()[i].id = id;
-		//printf("*** %i (tese)\n",patt.id);
+			blackjack.getPatts()[i].id = id;
+		}
+		else
+		{
+			if( (blackjack.config = arMultiReadConfigFile(blackjack.getPatts()[i].name)) == NULL ) {
+				printf("config data load error !!\n");
+				exit(0);
+			}
+		}
+		
 
 	}
 
@@ -270,6 +289,9 @@ static void draw(int i )
 		break;
 	case 1:
 		blackjack.drawDispenser();
+		break;
+	case 2:
+		blackjack.drawButton();
 		break;
 	}
 

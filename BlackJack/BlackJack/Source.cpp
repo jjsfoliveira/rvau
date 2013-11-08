@@ -149,15 +149,11 @@ static void mainLoop(void)
     }
 
     arVideoCapNext();
-	if( (err=arMultiGetTransMat(marker_info, marker_num, blackjack.config)) < 0 ) {
-		argSwapBuffers();
-		return;
+
+	if( (err=arMultiGetTransMat(marker_info, marker_num, blackjack.config)) >= 0 && err <100 ) {
+		draw(2);
 	}
-	if(err > 100.0 ) {
-		argSwapBuffers();
-		return;
-	}
-	draw(2);
+
 	for(int i = 0; i < blackjack.getPatts().size(); i++){
 		 /* check for object visibility */
 		k = -1;
@@ -173,7 +169,6 @@ static void mainLoop(void)
 		}
 
 		/* get the transformation between the marker and the real camera */
-		double aux[3][4];
 		arGetTransMat(&marker_info[k], blackjack.getPatts()[i].center, blackjack.getPatts()[i].width, blackjack.getPatts()[i].trans);
 
 		 draw(i);
@@ -227,9 +222,6 @@ static void init( void )
 				exit(0);
 			}
 		}
-		
-		blackjack.getPatts()[i].id = id;
-
 	}
 
     /* open the graphics window */
@@ -302,13 +294,10 @@ static void draw(int i )
     
 	switch(i){
 	case 0:
-		/*glPushMatrix();
-		glTranslatef( *r, *(r+1), *(r+2) );*/
-		//blackjack.drawPackDiller();
-		//glPopMatrix();
+		blackjack.drawPackDiller();
 		break;
 	case 1:
-		//blackjack.drawDispenser();
+		blackjack.drawDispenser();
 		break;
 	case 2:
 		blackjack.drawButton();

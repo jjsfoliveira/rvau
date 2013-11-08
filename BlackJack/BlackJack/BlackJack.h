@@ -52,7 +52,6 @@ private:
 	vector<Pattern> patts;
 	vector<int> buttonPick;
 	char *multiPattern;
-	Dispenser dispenser;
 
 
 	//aux

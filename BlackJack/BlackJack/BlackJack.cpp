@@ -16,8 +16,6 @@ BlackJack::BlackJack(void)
 	buttonPick.push_back(0);
 	buttonPick.push_back(0);
 
-	x_init = -30;
-	n_iterations = 20;
 
 
 	cout << "init dispenser" << endl;
@@ -320,7 +318,6 @@ void BlackJack::giveCardD(){
 void BlackJack::drawPackDiller(){
 	glPushMatrix();
 	glTranslatef(0,0.0,3.0);
-<<<<<<< HEAD
 	for(int i = 0; i < packDiller.size(); i++){
 		if(packDiller[i].st != WAIT){
 			glPushMatrix();
@@ -328,13 +325,6 @@ void BlackJack::drawPackDiller(){
 			packDiller[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
-=======
-	for(unsigned int i = 0; i< packDiller.size(); i++){
-		glPushMatrix();
-		glTranslatef(x_init+((comp+5)*i),0.0,0.0);
-		packDiller[i].drawCard(comp);
-		glPopMatrix();
->>>>>>> Tiago
 	}
 	glPopMatrix();
 	
@@ -342,11 +332,11 @@ void BlackJack::drawPackDiller(){
 
 
 
-
+/*
 void BlackJack::drawPackPlayer(){
 
 }
-
+*/
 
 
 
@@ -432,11 +422,9 @@ vector<Pattern>& BlackJack::getPatts(){
 void BlackJack::initPatts(){
 	
 	//patterns diller
-<<<<<<< HEAD
-	patts.push_back(Pattern("Data/patt.hiro", 80.0, 0.0 ,0.0));
-=======
-	patts.push_back(Pattern("Data/patt.hiro", 80.0, -30.0,0.0, "simple"));
->>>>>>> Tiago
+
+	patts.push_back(Pattern("Data/patt.hiro", 80.0, 0.0,0.0, "simple"));
+
 	index_diller = 0;
 	//patterns dispenser
 	patts.push_back(Pattern("Data/patt.b", 40.0, 0.0,0.0, "simple"));
@@ -455,12 +443,9 @@ void BlackJack::drawDispenser(){
 	glPopMatrix();
 }
 
-<<<<<<< HEAD
-vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
-=======
 
-double* BlackJack::posDiferPatterns(int marker1, int marker2){
->>>>>>> Tiago
+vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
+
 	double wmat1[3][4], wmat2[3][4];
 
 	arUtilMatInv(patts[marker1].trans, wmat1);
@@ -474,8 +459,3 @@ double* BlackJack::posDiferPatterns(int marker1, int marker2){
 }
 
 
-
-void BlackJack::drawDispenser()
-{
-	dispenser.render();
-}

@@ -87,10 +87,10 @@ void Card::initCard_2(int n_finish){
 	st = MOVE_2;
 	float a = (float)x_init+((Card::comp+5)*n_finish);
 	float aux;
-	if(a < 0){
-		aux = x - (float)x_init+((Card::comp+5)*n_finish);
+	if(a < x){
+		aux = x - a;
 	}else {
-		aux = x + (float)x_init+((Card::comp+5)*n_finish);
+		aux = -(a-x);
 	}
 	delta_x = aux/it;
 	delta_y = y/it;

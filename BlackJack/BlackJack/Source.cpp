@@ -60,7 +60,7 @@ void myTransformations(int dummy){
 		case WAIT:
 			break;
 		case MOVE_1:
-			if(blackjack.packDiller[i].it > Card::n_iterations*(1-(float)(Card::per_it/100.0))){
+			if(blackjack.packDiller[i].it > Card::n_iterations*(1-(float)(blackjack.packDiller[i].per_it/100.0))){
 				blackjack.packDiller[i].it--;
 				blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
 				break;
@@ -81,14 +81,14 @@ void myTransformations(int dummy){
 					double rx = r[0];
 					double ry = r[1];
 					double rz = r[2];
-					blackjack.packDiller[1].initCard_1(rx, ry, rz);
+					blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
 				}else if(i == 1 && blackjack.packPlayer.size() != 0){
 					vector<double> r;
 					r = blackjack.posDiferPatterns(3, 1);
 					double rx = r[0];
 					double ry = r[1];
 					double rz = r[2];
-					blackjack.packPlayer[0].initCard_1(rx, ry, rz);
+					blackjack.packPlayer[0].initCard_1(rx, ry, rz, j);
 				}
 				break;
 			}
@@ -109,7 +109,7 @@ void myTransformations(int dummy){
 		case WAIT:
 			break;
 		case MOVE_1:
-			if(blackjack.packPlayer[i].it > Card::n_iterations*(1-(float)(Card::per_it/100.0))){
+			if(blackjack.packPlayer[i].it > Card::n_iterations*(1-(float)(blackjack.packPlayer[i].per_it/100.0))){
 				blackjack.packPlayer[i].it--;
 				blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
 				break;
@@ -130,7 +130,7 @@ void myTransformations(int dummy){
 					double rx = r[0];
 					double ry = r[1];
 					double rz = r[2];
-					blackjack.packPlayer[1].initCard_1(rx, ry, rz);
+					blackjack.packPlayer[1].initCard_1(rx, ry, rz,j);
 				}
 				break;
 			}
@@ -166,8 +166,10 @@ static void   keyEvent( unsigned char key, int x, int y)
         cleanup();
         exit(0);*/
 		blackjack.initGame();
-    }else if(key == GLUT_KEY_F1){
-		blackjack.initGame();
+    }else if(key == 'a'){
+		blackjack.giveCardP();
+	}else if(key == 's'){
+		blackjack.giveCardD();
 	}
 }
 

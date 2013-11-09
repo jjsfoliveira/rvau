@@ -33,6 +33,9 @@ public:
 	void drawPackPlayer();
 	void drawPackDiller();
 	void drawButton();
+	int scorePlayer();
+	int scoreDiller();
+
 	ARMultiMarkerInfoT  *config;
 
 	vector<double> posDiferPatterns(int marker1, int marker2);

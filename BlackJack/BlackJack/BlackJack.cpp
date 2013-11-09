@@ -274,7 +274,7 @@ void BlackJack::initGame(){
 	double rx = r[0];
 	double ry = r[1];
 	double rz = r[2];
-	c.initCard_1(rx, ry, rz);
+	c.initCard_1(rx, ry, rz, 0);
 
 	packDiller.push_back(c);
 	playingCards.pop();
@@ -304,13 +304,26 @@ void BlackJack::resetGame(){
 }
 
 void BlackJack::giveCardP(){
-
-	packPlayer.push_back(playingCards.top());
+	Card c = playingCards.top();
+	vector<double> r;
+	r = posDiferPatterns(3, 1);
+	double rx = r[0];
+	double ry = r[1];
+	double rz = r[2];
+	c.initCard_1(rx, ry, rz, packPlayer.size());
+	packPlayer.push_back(c);
 	playingCards.pop();
 }
 
 void BlackJack::giveCardD(){
-	packDiller.push_back(playingCards.top());
+	Card c = playingCards.top();
+	vector<double> r;
+	r = posDiferPatterns(0, 1);
+	double rx = r[0];
+	double ry = r[1];
+	double rz = r[2];
+	c.initCard_1(rx, ry, rz, packDiller.size());
+	packDiller.push_back(c);
 	playingCards.pop();
 }
 
@@ -469,6 +482,21 @@ vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
 	r.push_back(wmat2[1][3]);
 	r.push_back(wmat2[2][3]);
 	return r;
+}
+
+int BlackJack::scorePlayer(){
+	int s = 0;
+	for(int i = 0; i < packPlayer.size(); i++){
+		s = s + packPlayer[i].getScore();
+	}
+	return s;
+}
+int BlackJack::scoreDiller(){
+	int s = 0;
+	for(int i = 0; i < packDiller.size(); i++){
+		s = s + packDiller[i].getScore();
+	}
+	return s;
 }
 
 

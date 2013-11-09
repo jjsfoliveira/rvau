@@ -8,6 +8,7 @@ Card::Card(int s, int n)
 	st = WAIT;
 	it = n_iterations;
 	x,y,z,delta_x, delta_y, delta_z =0;
+	per_it = 30;
 }
 
 
@@ -72,14 +73,27 @@ void Card::setState(){
 	}
 }
 
-void Card::initCard_1(double _x, double _y, double _z){
+void Card::initCard_1(double _x, double _y, double _z, int n_finish){
 	
 	x = _x;
 	y= _y;
 	z= _z;
 	st = MOVE_1;
+
+	if(_x > _y && _x > _z){
+		per_it = ((float)(x_init+((Card::comp+5)*n_finish))/(_x+x_init+((Card::comp+5)*n_finish)))*100;
+	}else if(_y > _x && _y > _z){
+		per_it = ((float)(x_init+((Card::comp+5)*n_finish))/(_y+x_init+((Card::comp+5)*n_finish)))*100;
+	}else if(_z > _x && _z > _y){
+		per_it = ((float)(x_init+((Card::comp+5)*n_finish))/(_z+x_init+((Card::comp+5)*n_finish)))*100;
+	}else{
+		per_it = 30;
+	}
+	if(per_it <0){
+		per_it = per_it*(-1);
+	}
 	
-	delta_x = (3*comp)/(n_iterations*(float)(Card::per_it/100.0));
+	delta_x = (3*comp)/(n_iterations*(float)(per_it/100.0));
 	//delta_x = (3*comp)/(20);
 }
 

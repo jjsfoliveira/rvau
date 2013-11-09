@@ -30,13 +30,14 @@ private:
 public:
 	const static int Card::n_iterations = 100; 
 	const static int Card::comp = 50;
-	const static int Card::per_it = 20;
+	//const static int Card::per_it = 20;
 	const static int Card::x_init = -30;
 	float x;
 	float y;
 	float z;
 	state st;
 	int it;
+	int per_it;
 
 	float delta_x;
 	float delta_y;
@@ -48,7 +49,7 @@ public:
 	void setImageNum(int n);
 	void drawCard(float comp);
 	void setState();
-	void initCard_1(double _x, double _y, double _z);
+	void initCard_1(double _x, double _y, double _z, int n_finish);
 	void initCard_2(int n_finish);
 };
 

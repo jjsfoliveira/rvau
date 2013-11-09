@@ -71,18 +71,11 @@ void myTransformations(int dummy){
 		case MOVE_2:
 			blackjack.packDiller[i].it--;
 			if(blackjack.packDiller[i].it <= 0){
-				blackjack.packDiller[i].st = FINISH;
+				blackjack.packDiller[i].st = ROTATION;
 				blackjack.packDiller[i].x = Card::x_init+((Card::comp+5)*j);
 				blackjack.packDiller[i].y = 0;
 				blackjack.packDiller[i].z = 0;
-				if(i == 0 && blackjack.packDiller.size() == 2){
-					vector<double> r;
-					r = blackjack.posDiferPatterns(0, 1);
-					double rx = r[0];
-					double ry = r[1];
-					double rz = r[2];
-					blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
-				}else if(i == 1 && blackjack.packPlayer.size() != 0){
+				if(i == 1 && blackjack.packPlayer.size() != 0){
 					vector<double> r;
 					r = blackjack.posDiferPatterns(3, 1);
 					double rx = r[0];
@@ -95,6 +88,30 @@ void myTransformations(int dummy){
 			blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
 			blackjack.packDiller[i].y =blackjack.packDiller[i].y - blackjack.packDiller[i].delta_y;
 			blackjack.packDiller[i].z =blackjack.packDiller[i].z - blackjack.packDiller[i].delta_z;
+			break;
+		case ROTATION:
+			if(blackjack.packDiller[i].turnCard){
+				if(blackjack.packDiller[i].rot_y <=0 ){
+					blackjack.packDiller[i].rot_y = 0;
+					blackjack.packDiller[i].st = FINISH;
+					if(i == 1 && blackjack.packDiller.size() == 2){
+						blackjack.giveCardD();
+					}else if(i == 0 && blackjack.packDiller.size() == 2){
+						vector<double> r;
+						r = blackjack.posDiferPatterns(0, 1);
+						double rx = r[0];
+						double ry = r[1];
+						double rz = r[2];
+						blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
+					}
+					break;
+				}
+				blackjack.packDiller[i].rot_y = blackjack.packDiller[i].rot_y - Card::deltaRot_y;
+				break;
+			}else{
+				break;
+			}
+
 		case FINISH:
 
 			j++;
@@ -120,23 +137,33 @@ void myTransformations(int dummy){
 		case MOVE_2:
 			blackjack.packPlayer[i].it--;
 			if(blackjack.packPlayer[i].it <= 0){
-				blackjack.packPlayer[i].st = FINISH;
+				blackjack.packPlayer[i].st = ROTATION;
 				blackjack.packPlayer[i].x = Card::x_init+((Card::comp+5)*j);
 				blackjack.packPlayer[i].y = 0;
 				blackjack.packPlayer[i].z = 0;
+			}
+			blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
+			blackjack.packPlayer[i].y =blackjack.packPlayer[i].y - blackjack.packPlayer[i].delta_y;
+			blackjack.packPlayer[i].z =blackjack.packPlayer[i].z - blackjack.packPlayer[i].delta_z;
+			break;
+
+		case ROTATION:
+			if(blackjack.packPlayer[i].rot_y <=0 ){
+				blackjack.packPlayer[i].rot_y = 0;
+				blackjack.packPlayer[i].st = FINISH;
 				if(i == 0 && blackjack.packPlayer.size() == 2){
 					vector<double> r;
 					r = blackjack.posDiferPatterns(3, 1);
 					double rx = r[0];
 					double ry = r[1];
 					double rz = r[2];
-					blackjack.packPlayer[1].initCard_1(rx, ry, rz,j);
+					blackjack.packPlayer[1].initCard_1(rx, ry, rz, j);
 				}
 				break;
 			}
-			blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
-			blackjack.packPlayer[i].y =blackjack.packPlayer[i].y - blackjack.packPlayer[i].delta_y;
-			blackjack.packPlayer[i].z =blackjack.packPlayer[i].z - blackjack.packPlayer[i].delta_z;
+			blackjack.packPlayer[i].rot_y = blackjack.packPlayer[i].rot_y - Card::deltaRot_y;
+			break;
+		
 		case FINISH:
 
 			j++;

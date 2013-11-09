@@ -9,6 +9,8 @@ Card::Card(int s, int n)
 	it = n_iterations;
 	x,y,z,delta_x, delta_y, delta_z =0;
 	per_it = 30;
+	rot_y = 180;
+	turnCard = true;
 }
 
 

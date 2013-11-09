@@ -279,8 +279,9 @@ void BlackJack::initGame(){
 	packDiller.push_back(c);
 	playingCards.pop();
 
-
-	packDiller.push_back(playingCards.top());
+	c = playingCards.top();
+	c.turnCard = false;
+	packDiller.push_back(c);
 	playingCards.pop();
 
 	
@@ -316,6 +317,11 @@ void BlackJack::giveCardP(){
 }
 
 void BlackJack::giveCardD(){
+
+	if(packDiller.size()==2 && !(packDiller[1].turnCard) ){
+		packDiller[1].turnCard = true;
+		return;
+	}
 	Card c = playingCards.top();
 	vector<double> r;
 	r = posDiferPatterns(0, 1);
@@ -335,6 +341,8 @@ void BlackJack::drawPackDiller(){
 		if(packDiller[i].st != WAIT){
 			glPushMatrix();
 			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
+			glRotated(packDiller[i].rot_y,0.0,1.0,0.0);
+			glTranslated(-Card::comp/2, 0, 0);
 			packDiller[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
@@ -353,6 +361,8 @@ void BlackJack::drawPackPlayer(){
 		if(packPlayer[i].st != WAIT){
 			glPushMatrix();
 			glTranslatef(packPlayer[i].x,packPlayer[i].y,packPlayer[i].z);
+			glRotated(packPlayer[i].rot_y,0.0,1.0,0.0);
+			glTranslated(-Card::comp/2, 0, 0);
 			packPlayer[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
@@ -487,14 +497,31 @@ vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
 int BlackJack::scorePlayer(){
 	int s = 0;
 	for(int i = 0; i < packPlayer.size(); i++){
-		s = s + packPlayer[i].getScore();
+		if(packPlayer[i].getScore() == 11){
+			if(s > 10){
+				s=s+1;
+			}else{
+				s=s+11;
+			}
+		}else{
+			s = s + packPlayer[i].getScore();
+		}
 	}
 	return s;
 }
 int BlackJack::scoreDiller(){
+
 	int s = 0;
 	for(int i = 0; i < packDiller.size(); i++){
-		s = s + packDiller[i].getScore();
+		if(packDiller[i].getScore() == 11){
+			if(s > 10){
+				s=s+1;
+			}else{
+				s=s+11;
+			}
+		}else{
+			s = s + packDiller[i].getScore();
+		}
 	}
 	return s;
 }

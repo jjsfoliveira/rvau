@@ -16,8 +16,8 @@
 #pragma once
 
 
-enum state {WAIT, MOVE_1, MOVE_2, FINISH};
-
+enum state {WAIT, MOVE_1, MOVE_2, ROTATION, FINISH};
+//static int turnCard = 0;
 class Card
 {
 public:
@@ -32,12 +32,15 @@ public:
 	const static int Card::comp = 50;
 	//const static int Card::per_it = 20;
 	const static int Card::x_init = -30;
+	const static int Card::deltaRot_y = 6;
 	float x;
 	float y;
 	float z;
 	state st;
 	int it;
 	int per_it;
+	float rot_y;
+	bool turnCard;
 
 	float delta_x;
 	float delta_y;

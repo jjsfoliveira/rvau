@@ -21,7 +21,10 @@ public:
 	const static int BlackJack::delta_time = 300;
 	vector<Card> packPlayer;
 	vector<Card> packDiller;
-
+	bool endGame;
+	int winner;
+	int stateGame;
+	string buttonText[5];
 	void loadCards();
 	void initGame();
 	void resetGame();
@@ -35,13 +38,15 @@ public:
 	void drawButton();
 	int scorePlayer();
 	int scoreDiller();
-	void draw_aux( double trans1[3][4], double trans2[3][4], int mode );
+	void draw_aux( double trans1[3][4], double trans2[3][4], int mode , int id);
 	ARMultiMarkerInfoT  *config;
 	vector<double> posDiferPatterns(int marker1, int marker2);
 
 	void pickButton1();
 	void pickButton2();
 	void pickButton3();
+
+	
 
 
 
@@ -56,7 +61,8 @@ private:
 	vector<Pattern> patts;
 	vector<int> buttonPick;
 	char *multiPattern;
-
+	float bet;
+	float money;
 
 	//aux
 	

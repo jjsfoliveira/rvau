@@ -3,7 +3,8 @@
 
 
 using namespace std;
-
+int number=0;
+float arraybet[] = {0.5,1,2,3,4,5,10,15,20,25};
 BlackJack::BlackJack(void)
 {
 
@@ -24,6 +25,18 @@ BlackJack::BlackJack(void)
 	button.load();
 	cout << "init patts" << endl;
 	initPatts();
+
+	endGame = false;
+	winner = -1;
+	stateGame=0;
+	buttonText[0] = "UP";
+	buttonText[1] = "DOWN";
+	buttonText[2] ="DEAL";
+	buttonText[3] ="DEAL";
+	buttonText[4] ="STOP";
+	bet = 0.5;
+	money = 50;
+	
 }
 
 
@@ -316,6 +329,13 @@ void BlackJack::giveCardP(){
 	c.initCard_1(rx, ry, rz, packPlayer.size());
 	packPlayer.push_back(c);
 	playingCards.pop();
+	if(scorePlayer() > 21)
+	{
+		endGame=true;
+		winner=0;
+		cout << "Score player" << scorePlayer();
+	}
+	
 }
 
 void BlackJack::giveCardD(){
@@ -333,16 +353,23 @@ void BlackJack::giveCardD(){
 	c.initCard_1(rx, ry, rz, packDiller.size());
 	packDiller.push_back(c);
 	playingCards.pop();
+	if(scoreDiller() > 21)
+	{
+		endGame=true;
+		winner=1;
+		cout << "Score diller" << scoreDiller();
+	}
+	
 }
 
 
 void BlackJack::drawPackDiller(){
 	glPushMatrix();
-	glTranslatef(0,0.0,3.0);
+	//glTranslatef(0,0.0,3.0);
 	for(int i = 0; i < packDiller.size(); i++){
 		if(packDiller[i].st != WAIT){
 			glPushMatrix();
-			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
+			glTranslatef(packDiller[i].x,packDiller[i].y-6,packDiller[i].z+3);
 			glRotated(packDiller[i].rot_y,0.0,1.0,0.0);
 			glTranslated(-Card::comp/2, 0, 0);
 			packDiller[i].drawCard(Card::comp);
@@ -377,9 +404,14 @@ void BlackJack::drawPackPlayer(){
 
 
 
-void  BlackJack::draw_aux( double trans1[3][4], double trans2[3][4], int mode )
+void  BlackJack::draw_aux( double trans1[3][4], double trans2[3][4], int mode, int id)
 {
 
+	int id_tmp = id;
+	if(stateGame==1)
+		id_tmp+=3;
+	if(stateGame==1 && id==2)
+		return;
 	double    gl_para[16];
 	GLfloat   mat_ambient[]     = {0.0, 0.0, 1.0, 1.0};
 	GLfloat   mat_ambient1[]    = {1.0, 0.0, 0.0, 1.0};
@@ -431,7 +463,24 @@ void  BlackJack::draw_aux( double trans1[3][4], double trans2[3][4], int mode )
 	glDisable( GL_LIGHTING );
 
 	glDisable( GL_DEPTH_TEST );
+
+	glDisable(GL_LIGHTING);
+
+	glPushMatrix();
+	glTranslatef(-20.0f,0,1);
+	glScalef(0.1, 0.1, 0.1);
+	glColor3f(0.0,0.0,1.0);	 // azul
 	
+	if(id_tmp <5)
+		for(int i=0; i < buttonText[id_tmp].size(); i++)
+			glutStrokeCharacter(GLUT_STROKE_ROMAN, buttonText[id_tmp][i]);
+
+	
+	glPopMatrix();
+
+	glColor3f(1.0f,1.0f,1.0f);	 // Branco
+	glEnable(GL_LIGHTING);
+
 }
 
 
@@ -440,13 +489,13 @@ void BlackJack::drawButton(){
 		if( config->marker[i].visible >= 0 )
 		{
 			buttonPick[i] = 0;
-			draw_aux( config->trans, config->marker[i].trans, 0 );
+			draw_aux( config->trans, config->marker[i].trans, 0 , i);
 		}
 		else     
 		{
 			buttonPick[i] += 1;
 			//cout << buttonPick[i]<< endl;
-			draw_aux( config->trans, config->marker[i].trans, 1 );
+			draw_aux( config->trans, config->marker[i].trans, 1 , i);
 		}
 		if(buttonPick[i] > 20)
 		{
@@ -472,18 +521,34 @@ void BlackJack::drawButton(){
 
 void BlackJack::pickButton1()
 {
-
-
+	if(stateGame==0)
+	{
+		bet = arraybet[++number];
+	}
+	else if(stateGame==1)
+	{
+		giveCardP();
+	}
 }
 void BlackJack::pickButton2()
 {
-
-
+	if(stateGame==0)
+	{
+		bet = arraybet[++number];
+	}
+	else if(stateGame==1)
+	{
+		giveCardD();
+	}
 }
 void BlackJack::pickButton3()
 {
-
-
+	if(stateGame==0)
+	{
+		initGame();
+		stateGame=1;
+		number=0;
+	}
 }
 
 vector<Pattern>& BlackJack::getPatts(){
@@ -535,7 +600,7 @@ vector<double> BlackJack::posDiferPatterns(int marker1, int marker2){
 int BlackJack::scorePlayer(){
 	int s = 0;
 	for(int i = 0; i < packPlayer.size(); i++){
-		if(packPlayer[i].getScore() == 11){
+		if(packPlayer[i].getScore() == 1){
 			if(s > 10){
 				s=s+1;
 			}else{
@@ -551,7 +616,7 @@ int BlackJack::scoreDiller(){
 
 	int s = 0;
 	for(int i = 0; i < packDiller.size(); i++){
-		if(packDiller[i].getScore() == 11){
+		if(packDiller[i].getScore() == 1){
 			if(s > 10){
 				s=s+1;
 			}else{
@@ -565,3 +630,29 @@ int BlackJack::scoreDiller(){
 }
 
 
+
+
+void drawText(double r, double g, double b, int x, int y, std::string text) {
+	glDisable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0,500,0,500,-1.0,1.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glDisable(GL_LIGHTING);
+	glEnable(GL_COLOR_MATERIAL);
+	glPushMatrix();
+	glColor3f(r, g, b);	 // amarelo
+	glRasterPos3f(x, y, 0);
+
+	for (unsigned i = 0; i < text.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
+	}
+
+	glPopMatrix();
+
+	glDisable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_DEPTH_TEST);
+}

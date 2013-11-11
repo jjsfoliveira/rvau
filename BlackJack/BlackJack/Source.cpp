@@ -94,7 +94,7 @@ void myTransformations(int dummy){
 				if(blackjack.packDiller[i].rot_y <=0 ){
 					blackjack.packDiller[i].rot_y = 0;
 					blackjack.packDiller[i].st = FINISH;
-					if(i == 1 && blackjack.packDiller.size() == 2){
+					if(blackjack.stateGame == 2 && blackjack.scoreDiller() < 17){
 						blackjack.giveCardD();
 					}else if(i == 0 && blackjack.packDiller.size() == 2){
 						vector<double> r;
@@ -103,6 +103,20 @@ void myTransformations(int dummy){
 						double ry = r[1];
 						double rz = r[2];
 						blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
+					}
+					if(blackjack.stateGame == 2 && blackjack.endGame == false && blackjack.scoreDiller() >= 17)
+					{
+						blackjack.endGame=true;
+						if(blackjack.scoreDiller()> blackjack.scorePlayer())
+							//ganha o diller
+							blackjack.winner = 0 ;
+						else if(blackjack.scoreDiller() < blackjack.scorePlayer())
+							//ganha o jogador
+							blackjack.winner = 1;
+						else
+							//empate
+							blackjack.winner = 2;
+						cout << "winner " << blackjack.winner;
 					}
 					break;
 				}
@@ -193,9 +207,11 @@ static void   keyEvent( unsigned char key, int x, int y)
         cleanup();
         exit(0);*/
 		blackjack.initGame();
+		blackjack.stateGame=1;
     }else if(key == 'a'){
 		blackjack.giveCardP();
 	}else if(key == 's'){
+		blackjack.stateGame=2;
 		blackjack.giveCardD();
 	}
 }
@@ -344,7 +360,7 @@ static void draw(int i )
     argDrawMode3D();
     argDraw3dCamera( 0, 0 );
     glClearDepth( 1.0 );
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT );
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 

@@ -10,6 +10,8 @@ Card::Card(int s, int n)
 	x,y,z,delta_x, delta_y, delta_z =0;
 	per_it = 30;
 	rot_y = 180;
+	rot_z = 90;
+	delta_rot_z = 5;
 	turnCard = true;
 }
 
@@ -44,7 +46,7 @@ void Card::drawCard(float comp){
 	
 	glPushMatrix();
 	
-	glTranslated(comp/2, 0, -2.5);
+	glTranslated(comp/2, 0, -2.1);
 	glRotated(180,0.0,1.0,0.0);
 	glTranslated(-comp/2, 0, 0);
 
@@ -94,6 +96,8 @@ void Card::initCard_1(double _x, double _y, double _z, int n_finish){
 	if(per_it <0){
 		per_it = per_it*(-1);
 	}
+
+	//delta_rot_z = (90/(float)(per_it*n_iterations))*100;
 	
 	delta_x = (3*comp)/(n_iterations*(float)(per_it/100.0));
 	//delta_x = (3*comp)/(20);

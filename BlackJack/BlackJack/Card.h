@@ -16,7 +16,7 @@
 #pragma once
 
 
-enum state {WAIT, MOVE_1, MOVE_2, ROTATION, FINISH};
+enum state {WAIT, ROTATION_1, MOVE_1, MOVE_2, ROTATION_2, FINISH};
 //static int turnCard = 0;
 class Card
 {
@@ -40,6 +40,8 @@ public:
 	int it;
 	int per_it;
 	float rot_y;
+	float rot_z;
+	float delta_rot_z;
 	bool turnCard;
 
 	float delta_x;

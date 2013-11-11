@@ -338,13 +338,15 @@ void BlackJack::giveCardD(){
 
 void BlackJack::drawPackDiller(){
 	glPushMatrix();
-	glTranslatef(0,0.0,3.0);
+	glTranslatef(0,-5.5, 2);
 	for(int i = 0; i < packDiller.size(); i++){
 		if(packDiller[i].st != WAIT){
 			glPushMatrix();
 			glTranslatef(packDiller[i].x,packDiller[i].y,packDiller[i].z);
+			glRotated(packDiller[i].rot_z, 0,0,1);
 			glRotated(packDiller[i].rot_y,0.0,1.0,0.0);
-			glTranslated(-Card::comp/2, 0, 0);
+			
+			glTranslated(-Card::comp/2, -((Card::comp * 363)/250)/2, 0);
 			packDiller[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
@@ -358,13 +360,16 @@ void BlackJack::drawPackDiller(){
 
 void BlackJack::drawPackPlayer(){
 	glPushMatrix();
-	glTranslatef(0,0.0,3.0);
+	glTranslatef(0,-5.5, 2);
 	for(int i = 0; i < packPlayer.size(); i++){
 		if(packPlayer[i].st != WAIT){
 			glPushMatrix();
 			glTranslatef(packPlayer[i].x,packPlayer[i].y,packPlayer[i].z);
+
+			glRotated(packPlayer[i].rot_z, 0,0,1);
+
 			glRotated(packPlayer[i].rot_y,0.0,1.0,0.0);
-			glTranslated(-Card::comp/2, 0, 0);
+			glTranslated(-Card::comp/2, -((Card::comp * 363)/250)/2, 0);
 			packPlayer[i].drawCard(Card::comp);
 			glPopMatrix();
 		}
@@ -511,7 +516,7 @@ void BlackJack::initPatts(){
 
 void BlackJack::drawDispenser(){
 	glPushMatrix();
-	glScalef(45.f,45.f,45.f);
+	glScalef(70.f,100.f,85.f);
 	dispenser.render();
 	//glutSolidCube(25);
 	glPopMatrix();

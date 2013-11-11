@@ -63,15 +63,23 @@ void myTransformations(int dummy){
 			if(blackjack.packDiller[i].it > Card::n_iterations*(1-(float)(blackjack.packDiller[i].per_it/100.0))){
 				blackjack.packDiller[i].it--;
 				blackjack.packDiller[i].x = blackjack.packDiller[i].x -blackjack.packDiller[i].delta_x;
+				
 				break;
 			}else{
-				blackjack.packDiller[i].initCard_2(j);
+				blackjack.packDiller[i].st = ROTATION_1;
 				break;
 			}
+		case ROTATION_1:
+			if(blackjack.packDiller[i].rot_z >0){
+				blackjack.packDiller[i].rot_z = blackjack.packDiller[i].rot_z - blackjack.packDiller[i].delta_rot_z;
+			}else{
+				blackjack.packDiller[i].initCard_2(j);
+			}
+			break;
 		case MOVE_2:
 			blackjack.packDiller[i].it--;
 			if(blackjack.packDiller[i].it <= 0){
-				blackjack.packDiller[i].st = ROTATION;
+				blackjack.packDiller[i].st = ROTATION_2;
 				blackjack.packDiller[i].x = Card::x_init+((Card::comp+5)*j);
 				blackjack.packDiller[i].y = 0;
 				blackjack.packDiller[i].z = 0;
@@ -89,7 +97,7 @@ void myTransformations(int dummy){
 			blackjack.packDiller[i].y =blackjack.packDiller[i].y - blackjack.packDiller[i].delta_y;
 			blackjack.packDiller[i].z =blackjack.packDiller[i].z - blackjack.packDiller[i].delta_z;
 			break;
-		case ROTATION:
+		case ROTATION_2:
 			if(blackjack.packDiller[i].turnCard){
 				if(blackjack.packDiller[i].rot_y <=0 ){
 					blackjack.packDiller[i].rot_y = 0;
@@ -131,13 +139,20 @@ void myTransformations(int dummy){
 				blackjack.packPlayer[i].x = blackjack.packPlayer[i].x -blackjack.packPlayer[i].delta_x;
 				break;
 			}else{
-				blackjack.packPlayer[i].initCard_2(j);
+				blackjack.packPlayer[i].st = ROTATION_1;
 				break;
 			}
+		case ROTATION_1:
+			if(blackjack.packPlayer[i].rot_z >0){
+				blackjack.packPlayer[i].rot_z = blackjack.packPlayer[i].rot_z - blackjack.packDiller[i].delta_rot_z;
+			}else{
+				blackjack.packPlayer[i].initCard_2(j);
+			}
+			break;
 		case MOVE_2:
 			blackjack.packPlayer[i].it--;
 			if(blackjack.packPlayer[i].it <= 0){
-				blackjack.packPlayer[i].st = ROTATION;
+				blackjack.packPlayer[i].st = ROTATION_2;
 				blackjack.packPlayer[i].x = Card::x_init+((Card::comp+5)*j);
 				blackjack.packPlayer[i].y = 0;
 				blackjack.packPlayer[i].z = 0;
@@ -147,7 +162,7 @@ void myTransformations(int dummy){
 			blackjack.packPlayer[i].z =blackjack.packPlayer[i].z - blackjack.packPlayer[i].delta_z;
 			break;
 
-		case ROTATION:
+		case ROTATION_2:
 			if(blackjack.packPlayer[i].rot_y <=0 ){
 				blackjack.packPlayer[i].rot_y = 0;
 				blackjack.packPlayer[i].st = FINISH;
@@ -228,11 +243,14 @@ static void mainLoop(void)
 
     arVideoCapNext();
 
+	glClearDepth( 1.0 );
+    glClear(GL_DEPTH_BUFFER_BIT);
 	if( (err=arMultiGetTransMat(marker_info, marker_num, blackjack.config)) >= 0 && err <100 ) {
 		draw(2);
 	}
 
-	for(int i = 0; i < blackjack.getPatts().size(); i++){
+	//for(int i = blackjack.getPatts().size()-1; i >= 0; i--){
+	for(int i = 0; i <blackjack.getPatts().size(); i++){
 		 /* check for object visibility */
 		k = -1;
 		for( j = 0; j < marker_num; j++ ) {
@@ -343,8 +361,7 @@ static void draw(int i )
 
     argDrawMode3D();
     argDraw3dCamera( 0, 0 );
-    glClearDepth( 1.0 );
-    glClear(GL_DEPTH_BUFFER_BIT);
+
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 

@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 ﻿Build started 11/11/2013 21:44:51.
+=======
+<<<<<<< HEAD
+﻿Build started 11/11/2013 21:32:03.
+     1>Project "C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
+=======
+﻿Build started 11/11/2013 21:34:07.
+>>>>>>> 0813889ed9004a75772ec9a2881bc3abfd026dd6
      1>Project "C:\Users\Tiago\Documents\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
+>>>>>>> e09e8d7c945f4c27c54aed8409f1980e905888c7
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp
          BlackJack.cpp
@@ -25,4 +34,12 @@
 
 Build succeeded.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:04.00
+=======
+<<<<<<< HEAD
+Time Elapsed 00:00:03.90
+=======
+Time Elapsed 00:00:03.46
+>>>>>>> e09e8d7c945f4c27c54aed8409f1980e905888c7
+>>>>>>> 0813889ed9004a75772ec9a2881bc3abfd026dd6

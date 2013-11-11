@@ -7,7 +7,7 @@
 #include <stack>  
 #include <iostream>
 #include <time.h>
-#include "Dispenser.h"
+#include "Model3D.h"
 
 using namespace std;
 
@@ -35,13 +35,13 @@ public:
 	void drawButton();
 	int scorePlayer();
 	int scoreDiller();
-
+	void draw_aux( double trans1[3][4], double trans2[3][4], int mode );
 	ARMultiMarkerInfoT  *config;
-
 	vector<double> posDiferPatterns(int marker1, int marker2);
-//	void drawPacks();
 
-
+	void pickButton1();
+	void pickButton2();
+	void pickButton3();
 
 
 
@@ -51,7 +51,8 @@ private:
 	stack<Card> playingCards;
 	RGBpixmap pixmap;
 	int score;
-	Dispenser dispenser;
+	Model3D dispenser;
+	Model3D button;
 	vector<Pattern> patts;
 	vector<int> buttonPick;
 	char *multiPattern;

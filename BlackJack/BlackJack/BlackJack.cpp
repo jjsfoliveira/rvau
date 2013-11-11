@@ -11,15 +11,17 @@ BlackJack::BlackJack(void)
 	playingCards = stack<Card>();
 	patts = vector<Pattern>();
 	patts = vector<Pattern>();
-	dispenser.loadDispenser();
 	buttonPick.push_back(0);
 	buttonPick.push_back(0);
 	buttonPick.push_back(0);
 
 
-
+	dispenser = Model3D("assets/dispenser.obj");
+	button = Model3D("assets/button.obj");
 	cout << "init dispenser" << endl;
-	dispenser.loadDispenser();
+	dispenser.load();
+	cout << "init button" << endl;
+	button.load();
 	cout << "init patts" << endl;
 	initPatts();
 }
@@ -375,7 +377,7 @@ void BlackJack::drawPackPlayer(){
 
 
 
-void draw_aux( double trans1[3][4], double trans2[3][4], int mode )
+void  BlackJack::draw_aux( double trans1[3][4], double trans2[3][4], int mode )
 {
 
 	double    gl_para[16];
@@ -394,7 +396,6 @@ void draw_aux( double trans1[3][4], double trans2[3][4], int mode )
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	/* load the camera transformation matrix */
 	glMatrixMode(GL_MODELVIEW);
 	argConvGlpara(trans1, gl_para);
 	glLoadMatrixd( gl_para );
@@ -422,11 +423,15 @@ void draw_aux( double trans1[3][4], double trans2[3][4], int mode )
 		glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient1);
 	}
 	glMatrixMode(GL_MODELVIEW);
-	glTranslatef( 0.0, 0.0, 25.0 );
-	glutSolidCube(50.0);
+	GLUquadricObj *quadratic;
+	glPushMatrix();
+	glScalef(1.5f,1.5f,1.5f);
+	button.render();
+	glPopMatrix();
 	glDisable( GL_LIGHTING );
 
 	glDisable( GL_DEPTH_TEST );
+	
 }
 
 
@@ -444,8 +449,41 @@ void BlackJack::drawButton(){
 			draw_aux( config->trans, config->marker[i].trans, 1 );
 		}
 		if(buttonPick[i] > 20)
+		{
 			cout << "Butao " << i << " foi carregado" << endl;
+			buttonPick[i] = 0;
+			switch (i)
+			{
+			case 1:
+				pickButton1();
+				break;
+			case 2:
+				pickButton2();
+				break;
+			case 3:
+				pickButton3();
+				break;
+			default:
+				break;
+			}
+		}
 	}
+}
+
+void BlackJack::pickButton1()
+{
+
+
+}
+void BlackJack::pickButton2()
+{
+
+
+}
+void BlackJack::pickButton3()
+{
+
+
 }
 
 vector<Pattern>& BlackJack::getPatts(){

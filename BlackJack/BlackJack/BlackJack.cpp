@@ -449,8 +449,41 @@ void BlackJack::drawButton(){
 			draw_aux( config->trans, config->marker[i].trans, 1 );
 		}
 		if(buttonPick[i] > 20)
+		{
 			cout << "Butao " << i << " foi carregado" << endl;
+			buttonPick[i] = 0;
+			switch (i)
+			{
+			case 1:
+				pickButton1();
+				break;
+			case 2:
+				pickButton2();
+				break;
+			case 3:
+				pickButton3();
+				break;
+			default:
+				break;
+			}
+		}
 	}
+}
+
+void BlackJack::pickButton1()
+{
+
+
+}
+void BlackJack::pickButton2()
+{
+
+
+}
+void BlackJack::pickButton3()
+{
+
+
 }
 
 vector<Pattern>& BlackJack::getPatts(){

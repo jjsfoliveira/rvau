@@ -37,11 +37,11 @@ public:
 	int scoreDiller();
 	void draw_aux( double trans1[3][4], double trans2[3][4], int mode );
 	ARMultiMarkerInfoT  *config;
-
 	vector<double> posDiferPatterns(int marker1, int marker2);
-//	void drawPacks();
 
-
+	void pickButton1();
+	void pickButton2();
+	void pickButton3();
 
 
 

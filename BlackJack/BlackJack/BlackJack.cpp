@@ -508,13 +508,13 @@ void BlackJack::drawButton(){
 			buttonPick[i] = 0;
 			switch (i)
 			{
-			case 1:
+			case 0:
 				pickButton1();
 				break;
-			case 2:
+			case 1:
 				pickButton2();
 				break;
-			case 3:
+			case 2:
 				pickButton3();
 				break;
 			default:

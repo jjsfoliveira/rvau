@@ -18,6 +18,7 @@
 #include <AR/ar.h>
 //#include "RGBpixmap.h"
 #include "BlackJack.h"
+#include <sstream>      
 
 
 
@@ -100,18 +101,9 @@ void myTransformations(int dummy){
 		case ROTATION_2:
 			if(blackjack.packDiller[i].turnCard){
 				if(blackjack.packDiller[i].rot_y <=0 ){
+
 					blackjack.packDiller[i].rot_y = 0;
 					blackjack.packDiller[i].st = FINISH;
-					if(blackjack.stateGame == 2 && blackjack.scoreDiller() < 17){
-						blackjack.giveCardD();
-					}else if(i == 0 && blackjack.packDiller.size() == 2){
-						vector<double> r;
-						r = blackjack.posDiferPatterns(0, 1);
-						double rx = r[0];
-						double ry = r[1];
-						double rz = r[2];
-						blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
-					}
 					if(blackjack.stateGame == 2 && blackjack.endGame == false && blackjack.scoreDiller() >= 17)
 					{
 						blackjack.endGame=true;
@@ -124,8 +116,25 @@ void myTransformations(int dummy){
 						else
 							//empate
 							blackjack.winner = 2;
-						cout << "winner " << blackjack.winner;
+						break;
 					}
+					if(blackjack.scoreDiller() > 21 )
+					{
+						blackjack.endGame=true;
+						blackjack.winner=1;
+						break;
+					}
+					if(blackjack.stateGame == 2 && blackjack.scoreDiller() < 17){
+						blackjack.giveCardD();
+					}else if(i == 0 && blackjack.packDiller.size() == 2){
+						vector<double> r;
+						r = blackjack.posDiferPatterns(0, 1);
+						double rx = r[0];
+						double ry = r[1];
+						double rz = r[2];
+						blackjack.packDiller[1].initCard_1(rx, ry, rz, j);
+					}
+					
 					break;
 				}
 				blackjack.packDiller[i].rot_y = blackjack.packDiller[i].rot_y - Card::deltaRot_y;
@@ -158,7 +167,7 @@ void myTransformations(int dummy){
 			}
 		case ROTATION_1:
 			if(blackjack.packPlayer[i].rot_z >0){
-				blackjack.packPlayer[i].rot_z = blackjack.packPlayer[i].rot_z - blackjack.packDiller[i].delta_rot_z;
+				blackjack.packPlayer[i].rot_z = blackjack.packPlayer[i].rot_z - blackjack.packPlayer[i].delta_rot_z;
 			}else{
 				blackjack.packPlayer[i].initCard_2(j);
 			}
@@ -180,6 +189,12 @@ void myTransformations(int dummy){
 			if(blackjack.packPlayer[i].rot_y <=0 ){
 				blackjack.packPlayer[i].rot_y = 0;
 				blackjack.packPlayer[i].st = FINISH;
+				if(blackjack.scorePlayer() > 21)
+				{
+					blackjack.endGame=true;
+					blackjack.winner=0;
+					break;
+				}
 				if(i == 0 && blackjack.packPlayer.size() == 2){
 					vector<double> r;
 					r = blackjack.posDiferPatterns(3, 1);
@@ -188,6 +203,8 @@ void myTransformations(int dummy){
 					double rz = r[2];
 					blackjack.packPlayer[1].initCard_1(rx, ry, rz, j);
 				}
+				
+				
 				break;
 			}
 			blackjack.packPlayer[i].rot_y = blackjack.packPlayer[i].rot_y - Card::deltaRot_y;
@@ -230,6 +247,7 @@ static void   keyEvent( unsigned char key, int x, int y)
 		blackjack.giveCardD();
 	}
 }
+
 
 /* main loop */
 static void mainLoop(void)
@@ -287,9 +305,50 @@ static void mainLoop(void)
 	}
  
 
+
+	if(blackjack.endGame == true)
+	{
+		string w;
+		if(blackjack.winner==1 && blackjack.stateGame==2)
+		{
+			blackjack.money += blackjack.bet;
+		}
+		else if(blackjack.winner==0 && blackjack.stateGame==2)
+		{
+			blackjack.money -= blackjack.bet;
+		}
+
+		if(blackjack.winner==1)
+		{
+			w = "Player win.";
+		}
+		else if(blackjack.winner==0)
+		{
+			w = "Dealer win.";
+		}
+		else
+			w="Draw";
+		blackjack.drawText(0,0,0, 250, 250, w);
+		blackjack.stateGame=3;
+	}
+
+	ostringstream ss;
+	ss << blackjack.bet;
+	std::string s(ss.str());
+	string sbet= "Bet:" + s;
+	ostringstream ss1;
+	ss1 << blackjack.money;
+	std::string s1(ss1.str());
+	string ssaldo= "Balance:" + s1;
+	blackjack.drawText(1,1,0,20,30, sbet);
+	blackjack.drawText(1,1,0,20,60, ssaldo);
+
+
+	
     argSwapBuffers();
 
-
+	
+	
 }
 
 static void init( void )
@@ -397,10 +456,7 @@ static void draw(int i )
     glMaterialfv(GL_FRONT, GL_SHININESS, mat_flash_shiny);	
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMatrixMode(GL_MODELVIEW);
-/*
-	double *r;
-	r = blackjack.posDiferPatterns(0, 1);
-	*/
+
     
 	switch(i){
 	case 0:

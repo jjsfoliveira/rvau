@@ -56,5 +56,6 @@ public:
 	void setState();
 	void initCard_1(double _x, double _y, double _z, int n_finish);
 	void initCard_2(int n_finish);
+	void resetCard();
 };
 

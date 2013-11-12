@@ -24,7 +24,7 @@ public:
 	bool endGame;
 	int winner;
 	int stateGame;
-	string buttonText[5];
+	string buttonText[6];
 	void loadCards();
 	void initGame();
 	void resetGame();
@@ -45,8 +45,10 @@ public:
 	void pickButton1();
 	void pickButton2();
 	void pickButton3();
+	void drawText(double r, double g, double b, int x, int y, std::string text);
 
-	
+	float bet;
+	float money;
 
 
 
@@ -61,8 +63,7 @@ private:
 	vector<Pattern> patts;
 	vector<int> buttonPick;
 	char *multiPattern;
-	float bet;
-	float money;
+	
 
 	//aux
 	

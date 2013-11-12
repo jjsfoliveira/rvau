@@ -116,3 +116,14 @@ void Card::initCard_2(int n_finish){
 	delta_y = y/it;
 	delta_z = z/it;
 }
+
+void Card::resetCard(){
+	st = WAIT;
+	it = n_iterations;
+	x,y,z,delta_x, delta_y, delta_z =0;
+	per_it = 30;
+	rot_y = 180;
+	rot_z = 90;
+	delta_rot_z = 5;
+	turnCard = true;
+}

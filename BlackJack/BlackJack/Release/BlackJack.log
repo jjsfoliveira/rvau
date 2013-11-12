@@ -1,81 +1,15 @@
-<<<<<<< HEAD
-﻿Build started 11/11/2013 21:40:39.
+﻿Build started 12/11/2013 01:12:24.
      1>Project "C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
-=======
-<<<<<<< HEAD
-﻿Build started 11/11/2013 21:44:51.
-=======
-<<<<<<< HEAD
-﻿Build started 11/11/2013 21:32:03.
-     1>Project "C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
-=======
-﻿Build started 11/11/2013 21:34:07.
->>>>>>> 0813889ed9004a75772ec9a2881bc3abfd026dd6
-     1>Project "C:\Users\Tiago\Documents\rvau\BlackJack\BlackJack\BlackJack.vcxproj" on node 2 (Build target(s)).
->>>>>>> e09e8d7c945f4c27c54aed8409f1980e905888c7
->>>>>>> 7437c4a0bac5bf48a6d596adf69e3724041269e8
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp Card.cpp Model3D.cpp Pattern.cpp RGBpixmap.cpp Source.cpp tiny_obj_loader.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I.\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlackJack.cpp
          BlackJack.cpp
-     1>BlackJack.cpp(369): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(391): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(480): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(463): warning C4101: 'quadratic' : unreferenced local variable
-     1>BlackJack.cpp(493): warning C4018: '<' : signed/unsigned mismatch
-<<<<<<< HEAD
-     1>BlackJack.cpp(607): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(623): warning C4018: '<' : signed/unsigned mismatch
-         Card.cpp
-         Model3D.cpp
-         Pattern.cpp
-         RGBpixmap.cpp
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(205): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(796): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(810): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(811): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(852): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(894): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(955): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(999): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\string.h(110) : see declaration of 'strcpy'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(1286): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(1386): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(1481): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(1531): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>C:\Users\zeca\Desktop\rvau\BlackJack\BlackJack\include\GL/glui.h(1646): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
-     1>RGBpixmap.cpp(82): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
-         Source.cpp
-     1>Source.cpp(58): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(146): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(269): warning C4018: '<' : signed/unsigned mismatch
-     1>Source.cpp(319): warning C4018: '<' : signed/unsigned mismatch
-         tiny_obj_loader.cpp
-     1>tiny_obj_loader.cpp(173): warning C4018: '>' : signed/unsigned mismatch
-     1>tiny_obj_loader.cpp(339): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(570): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(586): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-     1>tiny_obj_loader.cpp(642): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(311) : see declaration of 'sscanf'
-=======
-     1>BlackJack.cpp(610): warning C4018: '<' : signed/unsigned mismatch
-     1>BlackJack.cpp(626): warning C4018: '<' : signed/unsigned mismatch
->>>>>>> 7437c4a0bac5bf48a6d596adf69e3724041269e8
+     1>BlackJack.cpp(392): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(425): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(523): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(581): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(716): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(736): warning C4018: '<' : signed/unsigned mismatch
+     1>BlackJack.cpp(780): warning C4101: 'gl_para' : unreferenced local variable
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.exe" /NOLOGO /LIBPATH:.\lib libAR.lib libARgsub.lib libARvideo.lib libARMulti.lib opengl32.lib glu32.lib glui32.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zeca\Desktop\rvau\BlackJack\Release\BlackJack.lib" /MACHINE:X86 /SAFESEH Release\BlackJack.obj
          Release\Card.obj
@@ -91,16 +25,4 @@
 
 Build succeeded.
 
-<<<<<<< HEAD
-Time Elapsed 00:00:07.20
-=======
-<<<<<<< HEAD
-Time Elapsed 00:00:04.00
-=======
-<<<<<<< HEAD
-Time Elapsed 00:00:03.90
-=======
-Time Elapsed 00:00:03.46
->>>>>>> e09e8d7c945f4c27c54aed8409f1980e905888c7
->>>>>>> 0813889ed9004a75772ec9a2881bc3abfd026dd6
->>>>>>> 7437c4a0bac5bf48a6d596adf69e3724041269e8
+Time Elapsed 00:00:03.70

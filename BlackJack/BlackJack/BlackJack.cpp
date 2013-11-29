@@ -590,7 +590,7 @@ void BlackJack::drawButton(){
 			//cout << buttonPick[i]<< endl;
 			draw_aux( config->trans, config->marker[i].trans, 1 , i);
 		}
-		if(buttonPick[i] > 20)
+		if(buttonPick[i] > 30)
 		{
 			cout << "Butao " << i << " foi carregado" << endl;
 			buttonPick[i] = 0;
@@ -735,11 +735,7 @@ int BlackJack::scoreDiller(){
 	int aux = 0;
 	for(int i = 0; i < packDiller.size(); i++){
 		if(packDiller[i].getScore() == 1){
-			if(s > 10){
-				aux++;
-			}else{
-				s=s+11;
-			}
+			aux++;
 		}else{
 			s = s + packDiller[i].getScore();
 		}

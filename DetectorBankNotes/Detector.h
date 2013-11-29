@@ -1,5 +1,5 @@
 #include "ImgObject.h"
-#include "opencv2/imgproc/imgproc.hpp"
+
 
 #pragma once
 class Detector

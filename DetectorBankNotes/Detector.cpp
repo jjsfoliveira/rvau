@@ -25,15 +25,22 @@ void Detector::detectKeyPoint(){
 }
 
 void Detector::loadObjects(){
-	object = ImgObject("bancknotes/5_front.png", 5, true);
+	objects.push_back(ImgObject("bancknotes/5_front.png", 5, true));
+	objects.push_back(ImgObject("bancknotes/5_back.png", 5, false));
+	objects.push_back(ImgObject("bancknotes/10_front.png", 5, true));
+	objects.push_back(ImgObject("bancknotes/10_back.png", 5, false));
+	objects.push_back(ImgObject("bancknotes/20_front.png", 5, true));
+	objects.push_back(ImgObject("bancknotes/20_back.png", 5, false));
+	objects.push_back(ImgObject("bancknotes/50_front.png", 5, true));
+	objects.push_back(ImgObject("bancknotes/50_back.png", 5, false));
 }
 
-void Detector::getMatches_FLANN(){
+void Detector::getMatches_FLANN(int i){
 	SurfDescriptorExtractor extractor;
 
 	Mat descriptors_object, descriptors_scene;
 
-	extractor.compute( object.object, object.keypoints, descriptors_object );
+	extractor.compute( objects[i].object, objects[i].keypoints, descriptors_object );
 	extractor.compute( scene, keypoints, descriptors_scene );
 
 	//-- Step 3: Matching descriptor vectors using FLANN matcher
@@ -62,32 +69,35 @@ void Detector::getMatches_FLANN(){
 	}
 }
 
-void Detector::getCorners(){
+bool Detector::getCorners(int i){
 	 std::vector<Point2f> obj;
 	  std::vector<Point2f> scene;
 
-	  for( int i = 0; i < goodMatches.size(); i++ )
+	  for( int j = 0; j < goodMatches.size(); j++ )
 	  {
 		//-- Get the keypoints from the good matches
-		obj.push_back( object.keypoints[ goodMatches[i].queryIdx ].pt );
-		scene.push_back( keypoints[ goodMatches[i].trainIdx ].pt );
+		obj.push_back( objects[i].keypoints[ goodMatches[j].queryIdx ].pt );
+		scene.push_back( keypoints[ goodMatches[j].trainIdx ].pt );
 	  }
 
 	//while(true){
 	  Mat mat;
 	  Mat H = findHomography( obj, scene, CV_RANSAC, 3, mat);
 
+
 	  //-- Get the corners from the image_1 ( the object to be "detected" )
 	  std::vector<Point2f> obj_corners(4);
 	  obj_corners[0] = cvPoint(0,0); 
-	  obj_corners[1] = cvPoint( object.object.cols, 0 );
-	  obj_corners[2] = cvPoint( object.object.cols, object.object.rows );
-	  obj_corners[3] = cvPoint( 0, object.object.rows );
+	  obj_corners[1] = cvPoint( objects[i].object.cols, 0 );
+	  obj_corners[2] = cvPoint( objects[i].object.cols, objects[i].object.rows );
+	  obj_corners[3] = cvPoint( 0, objects[i].object.rows );
 	  std::vector<Point2f> scene_corners(4);
 
 	  perspectiveTransform( obj_corners, scene_corners, H);
 
-	  corners = scene_corners;
+	  corners.push_back(scene_corners);
+
+	  return true;
 }
 
 void Detector::removeGoodMatches(){
@@ -104,19 +114,21 @@ void Detector::removeGoodMatches(){
 	}
 }
 
-void Detector::createImage(){
+void Detector::createImage(int i){
 	Mat image_scene, image_object;
-	drawMatches( object.object, object.keypoints, scene, keypoints,
+	drawMatches( objects[i].object, objects[i].keypoints, scene, keypoints,
 		goodMatches, image, Scalar::all(-1), Scalar::all(-1),
 		vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 	drawKeypoints(scene,keypoints,image_scene, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
-	drawKeypoints(object.object,object.keypoints,image_object, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+	drawKeypoints(objects[i].object,objects[i].keypoints,image_object, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
-	line( image, corners[0]+ Point2f( object.object.cols, 0), corners[1]+ Point2f( object.object.cols, 0), Scalar(0, 255, 0), 4 );
-	line( image, corners[1]+ Point2f( object.object.cols, 0), corners[2]+ Point2f( object.object.cols, 0), Scalar( 0, 255, 0), 4 );
-	line( image, corners[2]+ Point2f( object.object.cols, 0), corners[3]+ Point2f( object.object.cols, 0), Scalar( 0, 255, 0), 4 );
-	line( image, corners[3]+ Point2f( object.object.cols, 0), corners[0]+ Point2f( object.object.cols, 0), Scalar( 0, 255, 0), 4 );
+	for(int j = 0; j < corners.size(); j++){
+		line( image, corners[j][0]+ Point2f( objects[i].object.cols, 0), corners[j][1]+ Point2f( objects[i].object.cols, 0), Scalar(0, 255, 0), 4 );
+		line( image, corners[j][1]+ Point2f( objects[i].object.cols, 0), corners[j][2]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
+		line( image, corners[j][2]+ Point2f( objects[i].object.cols, 0), corners[j][3]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
+		line( image, corners[j][3]+ Point2f( objects[i].object.cols, 0), corners[j][0]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
+	}
 	
 	imshow( "Good Matches & Object detection", image );
 	imshow( "Scene - good points", image_scene );

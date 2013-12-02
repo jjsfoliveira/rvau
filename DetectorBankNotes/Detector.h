@@ -13,14 +13,14 @@ public:
 	vector<DMatch> goodMatches;
 	Mat image;
 
-	ImgObject object;
+	vector<ImgObject> objects;
 
-	vector<Point2f> corners;
+	vector<vector<Point2f>> corners;
 
-	void getMatches_FLANN();
-	void getCorners();
+	void getMatches_FLANN(int i);
+	bool getCorners(int i);
 	void removeGoodMatches();
-	void createImage();
+	void createImage(int i);
 	
 private:
 	string path;

@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <iostream>
+#include <vector>
+#include <string>
 #include "opencv2/core/core.hpp"
 #include "opencv2/features2d/features2d.hpp"
 #include <opencv/highgui.h>
@@ -7,8 +9,9 @@
 #include "opencv2/nonfree/nonfree.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
-using namespace cv;
+
 using namespace std;
+using namespace cv;
 
 class ImgObject
 {
@@ -19,7 +22,7 @@ public:
 	bool front;
 	
 
-	ImgObject(String _path, int _value,bool _front);
+	ImgObject(string _path, int _value,bool _front);
 	ImgObject();
 	~ImgObject(void);
 

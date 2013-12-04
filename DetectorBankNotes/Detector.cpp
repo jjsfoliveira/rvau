@@ -80,6 +80,9 @@ bool Detector::getCorners(int i){
 		scene.push_back( keypoints[ goodMatches[j].trainIdx ].pt );
 	  }
 
+	  if(goodMatches.size()<4){
+		  return false;
+	  }
 	//while(true){
 	  Mat mat;
 	  Mat H = findHomography( obj, scene, CV_RANSAC, 3, mat);
@@ -103,12 +106,12 @@ bool Detector::getCorners(int i){
 void Detector::removeGoodMatches(){
 
 	for(int i = 0; i < keypoints.size(); i++){
-		if(pointPolygonTest(corners, keypoints[i].pt, false) >= 0){
+		if(pointPolygonTest(corners[corners.size()-1], keypoints[i].pt, false) >= 0){
 			keypoints.erase(keypoints.begin() + i);
 		}
 	}
 	for(int i = 0; i < keypoints.size(); i++){
-		if(pointPolygonTest(corners, keypoints[i].pt, false) >= 0){
+		if(pointPolygonTest(corners[corners.size()-1], keypoints[i].pt, false) >= 0){
 			keypoints.erase(keypoints.begin() + i);
 		}
 	}

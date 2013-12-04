@@ -105,15 +105,12 @@ bool Detector::getCorners(int i){
 
 void Detector::removeGoodMatches(){
 
-	for(int i = 0; i < keypoints.size(); i++){
+	for(int i = 0; i < keypoints.size();){
 		if(pointPolygonTest(corners[corners.size()-1], keypoints[i].pt, false) >= 0){
 			keypoints.erase(keypoints.begin() + i);
 		}
-	}
-	for(int i = 0; i < keypoints.size(); i++){
-		if(pointPolygonTest(corners[corners.size()-1], keypoints[i].pt, false) >= 0){
-			keypoints.erase(keypoints.begin() + i);
-		}
+		else
+			i++;
 	}
 }
 

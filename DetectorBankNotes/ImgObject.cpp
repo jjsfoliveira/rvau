@@ -38,7 +38,7 @@ void ImgObject::filterImg(){
 
 			for(int i = 0; i < keypoints.size(); i++){
 				if((keypoints[i].pt.x >= 3 && keypoints[i].pt.y >= 98 && keypoints[i].pt.x <= 30 && keypoints[i].pt.y <= 133 ) || 
-					(keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 5 && keypoints[i].pt.x <= 28 && keypoints[i].pt.y <= 34 ) ||
+					(keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 5 && keypoints[i].pt.x <= 50 && keypoints[i].pt.y <= 34 ) ||
 					(keypoints[i].pt.x >= 125 && keypoints[i].pt.y >= 5 && keypoints[i].pt.x <= 227 && keypoints[i].pt.y <= 107 )){
 						aux.push_back(keypoints[i]);
 				}
@@ -48,7 +48,7 @@ void ImgObject::filterImg(){
 		case 10:
 
 			for(int i = 0; i < keypoints.size(); i++){
-				if((keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 27 && keypoints[i].pt.y <= 28 ) || 
+				if((keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 50 && keypoints[i].pt.y <= 28 ) || 
 					(keypoints[i].pt.x >= 5 && keypoints[i].pt.y >= 100 && keypoints[i].pt.x <= 37 && keypoints[i].pt.y <= 132 ) ||
 					(keypoints[i].pt.x >= 123 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 227 && keypoints[i].pt.y <= 129 )){
 						aux.push_back(keypoints[i]);
@@ -59,9 +59,9 @@ void ImgObject::filterImg(){
 
 		case 20:
 			for(int i = 0; i < keypoints.size(); i++){
-				if((keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 6 && keypoints[i].pt.x <= 23 && keypoints[i].pt.y <= 34 ) || 
+				if((keypoints[i].pt.x >= 2 && keypoints[i].pt.y >= 6 && keypoints[i].pt.x <= 50 && keypoints[i].pt.y <= 34 ) || 
 					(keypoints[i].pt.x >= 5 && keypoints[i].pt.y >= 109 && keypoints[i].pt.x <= 35 && keypoints[i].pt.y <= 135 ) ||
-					(keypoints[i].pt.x >= 3 && keypoints[i].pt.y >= 123 && keypoints[i].pt.x <= 223 && keypoints[i].pt.y <= 133 )){
+					(keypoints[i].pt.x >= 123 && keypoints[i].pt.y >= 3 && keypoints[i].pt.x <= 223 && keypoints[i].pt.y <= 133 )){
 						aux.push_back(keypoints[i]);
 				}
 			}
@@ -71,7 +71,7 @@ void ImgObject::filterImg(){
 		case 50:
 			for(int i = 0; i < keypoints.size(); i++){
 				if((keypoints[i].pt.x >= 1 && keypoints[i].pt.y >= 105 && keypoints[i].pt.x <= 32 && keypoints[i].pt.y <= 131 ) || 
-					(keypoints[i].pt.x >= 4 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 25 && keypoints[i].pt.y <= 27 ) ||
+					(keypoints[i].pt.x >= 4 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 50 && keypoints[i].pt.y <= 27 ) ||
 					(keypoints[i].pt.x >= 130 && keypoints[i].pt.y >= 3 && keypoints[i].pt.x <= 227 && keypoints[i].pt.y <= 121 )){
 						aux.push_back(keypoints[i]);
 				}

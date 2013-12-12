@@ -19,6 +19,7 @@ public:
 	vector<int> values;
 
 	void getMatches_FLANN(int i);
+	void getMatches_SIFT(int i);
 	bool getCorners(int i);
 	void removeGoodMatches();
 	void createImage(int i);

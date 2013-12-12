@@ -5,10 +5,11 @@ using namespace cv;
 /** @function main */
 int main( int argc, char** argv )
 {
-	Detector det = Detector("euro_notes.jpg");
+	Detector det = Detector("all.png");
 	int i = 0;
-	while(true){
+	while(i < det.objects.size()){
 	det.getMatches_FLANN(i);
+	
 	if(det.getCorners(i)==false)
 	{
 		i++;
@@ -27,5 +28,6 @@ int main( int argc, char** argv )
 	else
 		det.removeGoodMatches();
 	}
+	char s = waitKey(0);
 	return 0;
 }

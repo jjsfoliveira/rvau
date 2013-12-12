@@ -16,6 +16,7 @@ public:
 	vector<ImgObject> objects;
 
 	vector<vector<Point2f>> corners;
+	vector<int> values;
 
 	void getMatches_FLANN(int i);
 	bool getCorners(int i);

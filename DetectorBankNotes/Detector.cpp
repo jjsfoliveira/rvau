@@ -27,12 +27,12 @@ void Detector::detectKeyPoint(){
 void Detector::loadObjects(){
 	objects.push_back(ImgObject("bancknotes/5_front.png", 5, true));
 	objects.push_back(ImgObject("bancknotes/5_back.png", 5, false));
-	objects.push_back(ImgObject("bancknotes/10_front.png", 5, true));
-	objects.push_back(ImgObject("bancknotes/10_back.png", 5, false));
-	objects.push_back(ImgObject("bancknotes/20_front.png", 5, true));
-	objects.push_back(ImgObject("bancknotes/20_back.png", 5, false));
-	objects.push_back(ImgObject("bancknotes/50_front.png", 5, true));
-	objects.push_back(ImgObject("bancknotes/50_back.png", 5, false));
+	objects.push_back(ImgObject("bancknotes/10_front.png", 10, true));
+	objects.push_back(ImgObject("bancknotes/10_back.png", 10, false));
+	objects.push_back(ImgObject("bancknotes/20_front.png",20, true));
+	objects.push_back(ImgObject("bancknotes/20_back.png", 20, false));
+	objects.push_back(ImgObject("bancknotes/50_front.png", 50, true));
+	objects.push_back(ImgObject("bancknotes/50_back.png", 50, false));
 }
 
 void Detector::getMatches_FLANN(int i){
@@ -150,23 +150,30 @@ void Detector::createImage(int i){
 	drawKeypoints(objects[i].object,objects[i].keypoints,image_object, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 	for(int j = 0; j < corners.size(); j++){
-		line( image, corners[j][0]+ Point2f( objects[i].object.cols, 0), corners[j][1]+ Point2f( objects[i].object.cols, 0), Scalar(255, 0, 0), 4 );
+		line( image, corners[j][0]+ Point2f( objects[i].object.cols, 0), corners[j][1]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
 		line( image, corners[j][1]+ Point2f( objects[i].object.cols, 0), corners[j][2]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
-		line( image, corners[j][2]+ Point2f( objects[i].object.cols, 0), corners[j][3]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 0, 250), 4 );
-		line( image, corners[j][3]+ Point2f( objects[i].object.cols, 0), corners[j][0]+ Point2f( objects[i].object.cols, 0), Scalar( 250, 255, 0), 4 );
+		line( image, corners[j][2]+ Point2f( objects[i].object.cols, 0), corners[j][3]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
+		line( image, corners[j][3]+ Point2f( objects[i].object.cols, 0), corners[j][0]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
 		
-		float x = (Point2f( objects[i].object.cols, 0)+corners[j][0]+(corners[j][1]-corners[j][0])).x;
-		float y = (Point2f( objects[i].object.cols, 0)+corners[j][1]+(corners[j][2]-corners[j][1])).y;
+		float x = (Point2f( objects[i].object.cols, 0).x + corners[j][0].x +(corners[j][1]-corners[j][0]).x/2);
+		float y = (Point2f( objects[i].object.cols, 0).y + corners[j][1].y +(corners[j][2]-corners[j][1]).y/2);
 
 		string Result;   
 		ostringstream convert;
 		convert << values[j];   
 		string text = convert.str();
 
-		putText( image, text , Point2f( x,y), CV_FONT_NORMAL,2,Scalar(0,255,0));
+		putText( image, text , Point2f( x,y), CV_FONT_HERSHEY_SIMPLEX,2,Scalar(0,0,0));
 	}
-
-	
+	int total=0;
+	for(int k=0; k < values.size(); k++)
+	{
+		total+= values[k];
+	}
+	ostringstream convert;
+	convert << total;
+	string text = convert.str();
+	putText( image, text , Point2f( 50,50), CV_FONT_HERSHEY_SIMPLEX,2,Scalar(0,0,0));
 	
 	imshow( "Good Matches & Object detection", image );
 	imshow( "Scene - good points", image_scene );

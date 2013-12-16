@@ -18,7 +18,7 @@ public:
 	vector<vector<Point2f>> corners;
 	vector<int> values;
 
-	void getMatches_FLANN(int i);
+	void getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matcher, int i);
 	void getMatches_SIFT(int i);
 	bool getCorners(int i);
 	void removeGoodMatches();

@@ -35,8 +35,8 @@ void Detector::loadObjects(){
 	objects.push_back(ImgObject("bancknotes/50_back.jpg", 50, false));
 }
 
-void Detector::getMatches_FLANN(int i){
-	SurfDescriptorExtractor extractor;
+void Detector::getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matcher,  int i){
+
 
 	Mat descriptors_object, descriptors_scene;
 
@@ -44,7 +44,7 @@ void Detector::getMatches_FLANN(int i){
 	extractor.compute( scene, keypoints, descriptors_scene );
 
 	//-- Step 3: Matching descriptor vectors using FLANN matcher
-	FlannBasedMatcher matcher;
+	//FlannBasedMatcher matcher;
 	std::vector< DMatch > matches;
 	matcher.match( descriptors_object, descriptors_scene, matches );
 	double max_dist = 0; double min_dist = 100;
@@ -68,7 +68,7 @@ void Detector::getMatches_FLANN(int i){
 
 	cout << "FLANN - Good Matches: " << goodMatches.size() << endl;
 }
-
+/*
 void Detector::getMatches_SIFT(int i){
 	SiftDescriptorExtractor extractor;
 
@@ -103,7 +103,7 @@ void Detector::getMatches_SIFT(int i){
 
 	cout << "SIFT - Good Matches: " << goodMatches.size() << endl;
 }
-
+*/
 bool Detector::getCorners(int i){
 	 std::vector<Point2f> obj;
 	  std::vector<Point2f> scene;
@@ -159,7 +159,7 @@ bool Detector::getCorners(int i){
 }
 
 void Detector::removeGoodMatches(){
-
+	
 	for(int i = 0; i < keypoints.size();){
 		if(pointPolygonTest(corners[corners.size()-1], keypoints[i].pt, false) >= 0){
 			keypoints.erase(keypoints.begin() + i);
@@ -167,6 +167,19 @@ void Detector::removeGoodMatches(){
 		else
 			i++;
 	}
+	/*	
+	for(int i = 0; i < goodMatches.size(); i++){
+		keypoints[goodMatches[i].trainIdx] = KeyPoint(0,0,10000);
+	}
+
+	for(int i = 0; i < keypoints.size();){
+		if(keypoints[i].size == 10000){
+			keypoints.erase(keypoints.begin() + i);
+		}
+		else
+			i++;
+	}*/
+	
 }
 
 void Detector::createImage(int i){

@@ -72,7 +72,7 @@ void ImgObject::filterImg(){
 			for(int i = 0; i < keypoints.size(); i++){
 				if((keypoints[i].pt.x >= 1 && keypoints[i].pt.y >= 105 && keypoints[i].pt.x <= 32 && keypoints[i].pt.y <= 131 ) || 
 					(keypoints[i].pt.x >= 4 && keypoints[i].pt.y >= 2 && keypoints[i].pt.x <= 50 && keypoints[i].pt.y <= 27 ) ||
-					(keypoints[i].pt.x >= 130 && keypoints[i].pt.y >= 3 && keypoints[i].pt.x <= 227 && keypoints[i].pt.y <= 121 )){
+					(keypoints[i].pt.x >= 130 && keypoints[i].pt.y >= 3 && keypoints[i].pt.x <= 250 && keypoints[i].pt.y <= 135 )){
 						aux.push_back(keypoints[i]);
 				}
 			}

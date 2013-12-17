@@ -10,6 +10,8 @@ public:
 	~Detector(void);
 
 	Mat scene;
+	Mat descriptors_object;
+	Mat descriptors_scene;
 	vector<KeyPoint> keypoints;
 	vector<DMatch> goodMatches;
 	Mat image;
@@ -19,7 +21,9 @@ public:
 	vector<vector<Point2f>> corners;
 	vector<int> values;
 
-	void getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matcher, int i);
+	
+	void getDescriptor(DescriptorExtractor& extractor, int i);
+	void getMatches(DescriptorMatcher& matcher, int i);
 	void getMatches_SIFT(int i);
 	bool getCorners(int i);
 	void removeGoodMatches();

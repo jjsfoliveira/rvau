@@ -29,7 +29,7 @@ int main( int argc, char** argv )
 	int o = atoi(op.c_str());
 	o= o-1;
 	Detector det;
-	String imag = "scenes/scenesy20r.png";
+	String imag = "scenes/scenes.png";
 	if(mode[o][0] == "FAST"){
 		FastFeatureDetector feature(15);
 		det = Detector(imag, feature);
@@ -40,7 +40,7 @@ int main( int argc, char** argv )
 		SiftFeatureDetector feature = SiftFeatureDetector();
 		det = Detector(imag, feature);
 	}else if(mode[o][0] == "ORB"){
-		OrbFeatureDetector feature(1500);
+		OrbFeatureDetector feature(500,1.2f,8,14,0,2,0,14);
 		det = Detector(imag, feature);
 	}
 
@@ -48,51 +48,24 @@ int main( int argc, char** argv )
 
 
 	while(i < det.objects.size()){
-		switch (o){
-		case 0:
-			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 1:
-			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 2:
-			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 3:
-			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 4:
-			det.getMatches(OrbDescriptorExtractor(),BFMatcher(),i);
-			break;
-		case 5:
-			det.getMatches(OrbDescriptorExtractor(),BFMatcher(),i);
-			break;
-		case 6:
-			det.getMatches(BriefDescriptorExtractor(),BFMatcher(),i);
-			break;
-		case 7:
-			det.getMatches(BriefDescriptorExtractor(),BFMatcher(),i);
-			break;
-		case 8:
-			det.getMatches(FREAK(),BFMatcher(),i);
-			break;
-		case 9:
-			det.getMatches(FREAK(),BFMatcher(),i);
-			break;
-		case 10:
-			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 11:
-			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 12:
-			det.getMatches(BriefDescriptorExtractor(),FlannBasedMatcher(),i);
-			break;
-		case 13:
-			det.getMatches(SurfDescriptorExtractor(),BFMatcher(),i);
-			break;
-		default:
-			break;
+
+
+		if(mode[o][1] == "SURF"){
+			det.getDescriptor(SurfDescriptorExtractor(), i);
+		}else if(mode[o][1] == "SIFT"){
+			det.getDescriptor(SiftDescriptorExtractor(), i);
+		}else if(mode[o][1] == "BRIEF"){
+			det.getDescriptor(BriefDescriptorExtractor(), i);
+		}else if(mode[o][1] == "ORB"){
+			det.getDescriptor(OrbDescriptorExtractor(), i);
+		}else if(mode[o][1] == "FREAK"){
+			det.getDescriptor(FREAK(), i);
+		}
+
+		if(mode[o][2] == "FlannBased"){
+			det.getMatches(FlannBasedMatcher(), i);
+		}else if(mode[o][2] == "Bruteforce"){
+			det.getMatches(BFMatcher(), i);
 		}
 	
 		if(det.getCorners(i)==false){

@@ -35,14 +35,12 @@ void Detector::loadObjects(FeatureDetector & detector){
 	objects.push_back(ImgObject("bancknotes/50_back.jpg", 50, false, detector));
 }
 
-void Detector::getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matcher,  int i){
-
-
-	Mat descriptors_object, descriptors_scene;
-
+void Detector::getDescriptor(DescriptorExtractor& extractor, int i){
 	extractor.compute( objects[i].object, objects[i].keypoints, descriptors_object );
 	extractor.compute( scene, keypoints, descriptors_scene );
+}
 
+void Detector::getMatches(DescriptorMatcher& matcher,  int i){
 	//-- Step 3: Matching descriptor vectors using FLANN matcher
 	//FlannBasedMatcher matcher;
 	std::vector< DMatch > matches;

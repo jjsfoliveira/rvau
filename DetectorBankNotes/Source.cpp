@@ -4,31 +4,91 @@ using namespace cv;
 
 /** @function main */
 int main( int argc, char** argv )
-{
-	String ext, mat;
-	cout << "Press 1: SurfDescriptorExtractor" << endl << "Press 2: SiftDescriptorExtractor" << endl;
-	cin >> ext;
-	cout << "Press 1: FlannBasedMatcher" << endl << "Press 2: BFMatcher" << endl;
-	cin >> mat;
+{ 
+	String mode[13][3] = {{"FAST","SURF","FlannBased"},
+							{"SURF","SURF","FlannBased"},
+							{"FAST","SIFT","FlannBased"},
+							{"SIFT","SIFT","FlannBased"},
+							{"FAST","ORB","Bruteforce"},
+							{"ORB","ORB","Bruteforce"},
+							{"FAST","BRIEF","Bruteforce"},
+							{"ORB","BRIEF","Bruteforce"},
+							{"FAST","FREAK","Bruteforce"},
+							{"SURF","FREAK","Bruteforce"},
+							{"SIFT","SURF","FlannBased"},
+							{"SURF","SIFT","FlannBased"},
+							{"SURF","BRIEF","FlannBased"},
+							};
+	String op;
+	cout << "Feature Detectors / Decriptor Extractors / Matchers types" << endl;
+	for(int i = 0; i < 13; i++){
+		cout << (i+1) << " - "<< mode[i][0] << " / " << mode[i][1] << " / " << mode[i][2] << endl;
+	}
+	cin >> op;
+	int o = atoi(op.c_str());
+	o= o-1;
+	Detector det;
+	String imag = "scenesy50r.png";
+	if(mode[o][0] == "FAST"){
+		FastFeatureDetector feature(15);
+		det = Detector(imag, feature);
+	}else if(mode[o][0] == "SURF"){
+		SurfFeatureDetector feature(400);
+		det = Detector(imag, feature);
+	}else if(mode[o][0] == "SIFT"){
+		SiftFeatureDetector feature = SiftFeatureDetector();
+		det = Detector(imag, feature);
+	}else if(mode[o][0] == "ORB"){
+		OrbFeatureDetector feature(1500);
+		det = Detector(imag, feature);
+	}
 
-
-
-	Detector det = Detector("scenesy50r.png");
 	int i = 0;
 
 
 	while(i < det.objects.size()){
-
-
-		//det.getMatches_SIFT(i);
-		if(ext == "1" && ext == "1"){
+		switch (o){
+		case 0:
 			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
-		}else if(ext == "1" && ext == "2"){
-			det.getMatches(SurfDescriptorExtractor(),BFMatcher(),i);
-		}else if(ext == "2" && ext == "1"){
+			break;
+		case 1:
+			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
+			break;
+		case 2:
 			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
-		}else{
-			det.getMatches(SiftDescriptorExtractor(),BFMatcher(),i);
+			break;
+		case 3:
+			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
+			break;
+		case 4:
+			det.getMatches(OrbDescriptorExtractor(),BFMatcher(),i);
+			break;
+		case 5:
+			det.getMatches(OrbDescriptorExtractor(),BFMatcher(),i);
+			break;
+		case 6:
+			det.getMatches(BriefDescriptorExtractor(),BFMatcher(),i);
+			break;
+		case 7:
+			det.getMatches(BriefDescriptorExtractor(),BFMatcher(),i);
+			break;
+		case 8:
+			det.getMatches(FREAK(),BFMatcher(),i);
+			break;
+		case 9:
+			det.getMatches(FREAK(),BFMatcher(),i);
+			break;
+		case 10:
+			det.getMatches(SurfDescriptorExtractor(),FlannBasedMatcher(),i);
+			break;
+		case 11:
+			det.getMatches(SiftDescriptorExtractor(),FlannBasedMatcher(),i);
+			break;
+		case 12:
+			det.getMatches(BriefDescriptorExtractor(),FlannBasedMatcher(),i);
+			break;
+		default:
+			break;
 		}
 	
 		if(det.getCorners(i)==false){
@@ -37,8 +97,6 @@ int main( int argc, char** argv )
 			}else{
 				i++;
 			}
-		
-		
 		}else{
 			det.removeGoodMatches();
 		}

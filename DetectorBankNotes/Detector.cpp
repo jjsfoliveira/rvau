@@ -1,12 +1,13 @@
 #include "Detector.h"
 
 
-Detector::Detector(string _path)
+Detector::Detector(string _path, FeatureDetector & detector)
 {
+
 	path = _path;
 	readImage();
-	detectKeyPoint();
-	loadObjects();
+	detectKeyPoint(detector);
+	loadObjects(detector);
 }
 
 
@@ -18,21 +19,20 @@ void Detector::readImage(){
 	scene = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 }
 
-void Detector::detectKeyPoint(){
-	int minHessian = 400;
-	SurfFeatureDetector detector( minHessian );
+void Detector::detectKeyPoint(FeatureDetector & detector){
 	detector.detect( scene, keypoints);
+	cout << "Scene - KeyPoint: "<< keypoints.size() << endl;
 }
 
-void Detector::loadObjects(){
-	objects.push_back(ImgObject("bancknotes/5_front.jpg", 5, true));
-	objects.push_back(ImgObject("bancknotes/5_back.jpg", 5, false));
-	objects.push_back(ImgObject("bancknotes/10_front.jpg", 10, true));
-	objects.push_back(ImgObject("bancknotes/10_back.jpg", 10, false));
-	objects.push_back(ImgObject("bancknotes/20_front.jpg",20, true));
-	objects.push_back(ImgObject("bancknotes/20_back.jpg", 20, false));
-	objects.push_back(ImgObject("bancknotes/50_front.jpg", 50, true));
-	objects.push_back(ImgObject("bancknotes/50_back.jpg", 50, false));
+void Detector::loadObjects(FeatureDetector & detector){
+	objects.push_back(ImgObject("bancknotes/5_front.jpg", 5, true, detector));
+	objects.push_back(ImgObject("bancknotes/5_back.jpg", 5, false, detector));
+	objects.push_back(ImgObject("bancknotes/10_front.jpg", 10, true, detector));
+	objects.push_back(ImgObject("bancknotes/10_back.jpg", 10, false, detector));
+	objects.push_back(ImgObject("bancknotes/20_front.jpg",20, true, detector));
+	objects.push_back(ImgObject("bancknotes/20_back.jpg", 20, false, detector));
+	objects.push_back(ImgObject("bancknotes/50_front.jpg", 50, true, detector));
+	objects.push_back(ImgObject("bancknotes/50_back.jpg", 50, false, detector));
 }
 
 void Detector::getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matcher,  int i){
@@ -66,44 +66,9 @@ void Detector::getMatches(DescriptorExtractor& extractor,DescriptorMatcher& matc
 	}
 	goodMatches = matches;
 
-	cout << "FLANN - Good Matches: " << goodMatches.size() << endl;
+	
 }
-/*
-void Detector::getMatches_SIFT(int i){
-	SiftDescriptorExtractor extractor;
 
-	Mat descriptors_object, descriptors_scene;
-
-	extractor.compute( objects[i].object, objects[i].keypoints, descriptors_object );
-	extractor.compute( scene, keypoints, descriptors_scene );
-
-	//-- Step 3: Matching descriptor vectors using FLANN matcher
-	BFMatcher matcher;
-	std::vector< DMatch > matches;
-	matcher.match( descriptors_object, descriptors_scene, matches );
-	double max_dist = 0; double min_dist = 100;
-
-	//-- Quick calculation of max and min distances between keypoints
-	for( int i = 0; i < descriptors_object.rows; i++ )
-	{ double dist = matches[i].distance;
-	if( dist < min_dist ) min_dist = dist;
-	if( dist > max_dist ) max_dist = dist;
-	}
-
-
-	//-- Draw only "good" matches (i.e. whose distance is less than 3*min_dist )
-
-
-	goodMatches.clear();
-	for( int i = 0; i < descriptors_object.rows; i++ )
-	{ if( matches[i].distance < 3*min_dist )
-		{ goodMatches.push_back( matches[i]); }
-	}
-	goodMatches = matches;
-
-	cout << "SIFT - Good Matches: " << goodMatches.size() << endl;
-}
-*/
 bool Detector::getCorners(int i){
 	 std::vector<Point2f> obj;
 	  std::vector<Point2f> scene;
@@ -151,11 +116,12 @@ bool Detector::getCorners(int i){
 			return false;
 		}
 	  }
-		goodMatches = aux;
-		corners.push_back(scene_corners);
-		cout << objects[i].value << endl;
-		values.push_back(objects[i].value);
-		return true;
+	goodMatches = aux;
+	corners.push_back(scene_corners);
+	//cout << objects[i].value << endl;
+	values.push_back(objects[i].value);
+	cout << "Good Matches: " << goodMatches.size() << endl;
+	return true;
 }
 
 void Detector::removeGoodMatches(){
@@ -167,18 +133,6 @@ void Detector::removeGoodMatches(){
 		else
 			i++;
 	}
-	/*	
-	for(int i = 0; i < goodMatches.size(); i++){
-		keypoints[goodMatches[i].trainIdx] = KeyPoint(0,0,10000);
-	}
-
-	for(int i = 0; i < keypoints.size();){
-		if(keypoints[i].size == 10000){
-			keypoints.erase(keypoints.begin() + i);
-		}
-		else
-			i++;
-	}*/
 	
 }
 

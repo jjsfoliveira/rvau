@@ -5,7 +5,8 @@
 class Detector
 {
 public:
-	Detector(string _path);
+	Detector(string _path, FeatureDetector & detector);
+	Detector(){}
 	~Detector(void);
 
 	Mat scene;
@@ -27,7 +28,7 @@ public:
 private:
 	string path;
 	void readImage();
-	void detectKeyPoint();
-	void loadObjects();
+	void detectKeyPoint(FeatureDetector & detector);
+	void loadObjects(FeatureDetector & detector);
 };
 

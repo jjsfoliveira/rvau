@@ -1,13 +1,13 @@
 #include "ImgObject.h"
 
 
-ImgObject::ImgObject(string _path,int _value, bool _front)
+ImgObject::ImgObject(string _path,int _value, bool _front,FeatureDetector & detector)
 {
 	path = _path;
 	value = _value;
 	front = _front;
 	readImage();
-	detectKeyPoint();
+	detectKeyPoint(detector);
 	filterImg();
 }
 
@@ -23,10 +23,15 @@ void ImgObject::readImage(){
 	object = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 }
 
-void ImgObject::detectKeyPoint(){
-	int minHessian = 400;
-	SurfFeatureDetector detector( minHessian );
+void ImgObject::detectKeyPoint(FeatureDetector & detector){
 	detector.detect( object, keypoints);
+	string f = "";
+	if(front){
+		f = "front";
+	}else{
+		f = "back";
+	}
+	cout << value << " - " << f << ": " << keypoints.size()<< endl;
 }
 
 void ImgObject::filterImg(){

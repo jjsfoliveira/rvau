@@ -22,14 +22,14 @@ public:
 	bool front;
 	
 
-	ImgObject(string _path, int _value,bool _front);
+	ImgObject(string _path, int _value,bool _front,FeatureDetector & detector);
 	ImgObject();
 	~ImgObject(void);
 
 private: 
 	string path;
 	void readImage();
-	void detectKeyPoint();
+	void detectKeyPoint(FeatureDetector & detector);
 	void filterImg();
 };
 

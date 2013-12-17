@@ -28,7 +28,7 @@ int main( int argc, char** argv )
 	int o = atoi(op.c_str());
 	o= o-1;
 	Detector det;
-	String imag = "scenesy50r.png";
+	String imag = "scenes/scenesy50r.png";
 	if(mode[o][0] == "FAST"){
 		FastFeatureDetector feature(15);
 		det = Detector(imag, feature);

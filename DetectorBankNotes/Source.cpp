@@ -1,5 +1,5 @@
 #include "Detector.h"
-
+#include <time.h>
 using namespace cv;
 
 /** @function main */
@@ -45,6 +45,8 @@ int main( int argc, char** argv )
 
 	int i = 0;
 
+	time_t now;
+	time(&now);
 
 	while(i < det.objects.size()){
 
@@ -92,6 +94,10 @@ int main( int argc, char** argv )
 		else
 			det.removeGoodMatches();*/
 	}
+	time_t end;
+	time(&end);
+	double seconds  = difftime(end, now);
+	cout << "Time " << seconds << endl;
 	det.createImage(i);
 	char s = waitKey(0);
 	return 0;

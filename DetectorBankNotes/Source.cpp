@@ -5,13 +5,12 @@ using namespace cv;
 /** @function main */
 int main( int argc, char** argv )
 { 
-	String mode[14][3] = {{"FAST","SURF","FlannBased"},
+	String mode[13][3] = {{"FAST","SURF","FlannBased"},
 							{"SURF","SURF","FlannBased"},
 							{"FAST","SIFT","FlannBased"},
 							{"SIFT","SIFT","FlannBased"},
 							{"SIFT","SURF","FlannBased"},
 							{"SURF","SIFT","FlannBased"},
-							{"SURF","BRIEF","FlannBased"},
 							{"FAST","ORB","Bruteforce"},
 							{"ORB","ORB","Bruteforce"},
 							{"FAST","BRIEF","Bruteforce"},
@@ -22,7 +21,7 @@ int main( int argc, char** argv )
 							};
 	String op;
 	cout << "Feature Detectors / Decriptor Extractors / Matchers types" << endl;
-	for(int i = 0; i < 14; i++){
+	for(int i = 0; i < 13; i++){
 		cout << (i+1) << " - "<< mode[i][0] << " / " << mode[i][1] << " / " << mode[i][2] << endl;
 	}
 	cin >> op;

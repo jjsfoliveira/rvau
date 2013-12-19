@@ -38,6 +38,8 @@ void Detector::loadObjects(FeatureDetector & detector){
 void Detector::getDescriptor(DescriptorExtractor& extractor, int i){
 	extractor.compute( objects[i].object, objects[i].keypoints, descriptors_object );
 	extractor.compute( scene, keypoints, descriptors_scene );
+	if(i == 0)
+		cout << "Descriptors points: " << descriptors_object.size()<< endl;
 }
 
 void Detector::getMatches(DescriptorMatcher& matcher,  int i){
@@ -136,12 +138,12 @@ void Detector::removeGoodMatches(){
 
 void Detector::createImage(int i){
 	Mat image_scene, image_object;
-	drawMatches( objects[i].object, objects[i].keypoints, scene, keypoints,
+	/*drawMatches( objects[i].object, objects[i].keypoints, scene, keypoints,
 		goodMatches, image, Scalar::all(-1), Scalar::all(-1),
-		vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+		vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );*/
 
 	drawKeypoints(scene,keypoints,image_scene, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
-	drawKeypoints(objects[i].object,objects[i].keypoints,image_object, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+	//drawKeypoints(objects[i].object,objects[i].keypoints,image_object, Scalar::all(-1),DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 	/*for(int j = 0; j < corners.size(); j++){
 		line( image, corners[j][0]+ Point2f( objects[i].object.cols, 0), corners[j][1]+ Point2f( objects[i].object.cols, 0), Scalar( 0, 255, 0), 4 );
@@ -187,8 +189,8 @@ void Detector::createImage(int i){
 	string text = convert.str();
 	putText( image_scene, text , Point2f( 50,50), CV_FONT_HERSHEY_SIMPLEX,2,Scalar(255,0,0), 4);
 	
-	imshow( "Good Matches & Object detection", image );
+//	imshow( "Good Matches & Object detection", image );
 	imshow( "Scene - good points", image_scene );
-	imshow( "Object - good points", image_object );
+	//imshow( "Object - good points", image_object );
 
 }

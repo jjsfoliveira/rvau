@@ -5,7 +5,7 @@ using namespace cv;
 /** @function main */
 int main( int argc, char** argv )
 { 
-	String mode[13][3] = {{"FAST","SURF","FlannBased"},
+	/*String mode[13][3] = {{"FAST","SURF","FlannBased"},
 							{"SURF","SURF","FlannBased"},
 							{"FAST","SIFT","FlannBased"},
 							{"SIFT","SIFT","FlannBased"},
@@ -18,10 +18,31 @@ int main( int argc, char** argv )
 							{"FAST","FREAK","Bruteforce"},
 							{"SURF","FREAK","Bruteforce"},
 							{"SURF","SURF","Bruteforce"}
-							};
+							};*/
+
+	String mode[18][3] ={{"FAST","SURF","FlannBased"},
+						{"FAST","SIFT","FlannBased"},
+						{"SURF","SURF","FlannBased"},
+						{"SURF","SIFT","FlannBased"},
+						{"SIFT","SURF","FlannBased"},
+						{"SIFT","SIFT","FlannBased"},
+
+						{"FAST","SURF","Bruteforce"},
+						{"FAST","SIFT","Bruteforce"},
+						{"FAST","BRIEF","Bruteforce"},
+						{"FAST","FREAK","Bruteforce"},
+						{"SURF","SURF","Bruteforce"},
+						{"SURF","SIFT","Bruteforce"},
+						{"SURF","BRIEF","Bruteforce"},
+						{"SURF","FREAK","Bruteforce"},
+						{"SIFT","SURF","Bruteforce"},
+						{"SIFT","SIFT","Bruteforce"},
+						{"SIFT","BRIEF","Bruteforce"},
+						{"SIFT","FREAK","Bruteforce"}
+						};
 	String op;
 	cout << "Feature Detectors / Decriptor Extractors / Matchers types" << endl;
-	for(int i = 0; i < 13; i++){
+	for(int i = 0; i < 18 ; i++){
 		cout << (i+1) << " - "<< mode[i][0] << " / " << mode[i][1] << " / " << mode[i][2] << endl;
 	}
 	cin >> op;
